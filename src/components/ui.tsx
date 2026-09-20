@@ -1,6 +1,6 @@
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
-import type { ReactNode } from "react";
+import type { PointerEvent, ReactNode } from "react";
 
 export function Reveal({ children, delay = 0, className = "" }: { children: ReactNode; delay?: number; className?: string }) {
   const reduce = typeof window !== "undefined" && window.matchMedia?.("(prefers-reduced-motion: reduce)").matches;
@@ -69,15 +69,23 @@ export function MagneticButton({
       <span aria-hidden className="transition-transform duration-300 group-hover:translate-x-1">→</span>
     </>
   );
+  const magnet = (e: PointerEvent<HTMLElement>) => {
+    if (window.matchMedia?.("(hover: none)").matches) return;
+    const r = e.currentTarget.getBoundingClientRect();
+    const dx = e.clientX - (r.left + r.width / 2);
+    const dy = e.clientY - (r.top + r.height / 2);
+    e.currentTarget.style.transform = `translate(${(dx * 0.12).toFixed(1)}px, ${(dy * 0.18).toFixed(1)}px)`;
+  };
+  const release = (e: PointerEvent<HTMLElement>) => { e.currentTarget.style.transform = ""; };
   if (to) {
     return (
-      <Link to={to} className={`${base} ${styles} ${className}`}>
+      <Link to={to} onPointerMove={magnet} onPointerLeave={release} className={`${base} ${styles} ${className}`}>
         {inner}
       </Link>
     );
   }
   return (
-    <a href={href ?? "#"} className={`${base} ${styles} ${className}`}>
+    <a href={href ?? "#"} onPointerMove={magnet} onPointerLeave={release} className={`${base} ${styles} ${className}`}>
       {inner}
     </a>
   );
@@ -88,7 +96,7 @@ export function Logo({ compact = false }: { compact?: boolean }) {
       <svg width={compact ? 28 : 32} height={compact ? 28 : 32} viewBox="0 0 64 64" aria-hidden>
         <rect width="64" height="64" rx="14" fill="#0e1422" stroke="rgba(255,255,255,0.12)" />
         <path d="M20 44 L32 12 L44 44" fill="none" stroke="#C8FF3D" strokeWidth="4" strokeLinecap="round" strokeLinejoin="round" />
-        <circle cx="32" cy="34" r="4.5" fill="#0e1422" stroke="#C8FF3D" strokeWidth="3" />
+        <circle cx="32" cy="34" r="4.5" fill="#0e1422" stroke="#C8FF3D" strokeWidth="3" className="logo-core" />
         <path d="M26 44 H38" stroke="#fff" strokeWidth="3" strokeLinecap="round" opacity="0.9" />
       </svg>
       <span className="font-display font-bold tracking-tight text-[17px]">

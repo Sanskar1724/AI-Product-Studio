@@ -17,7 +17,7 @@ const STACK: Record<string, string[]> = {
   "Custom Software": ["React + TypeScript", "FastAPI / Node", "Postgres / Mongo", "Docker"],
 };
 
-export default function ProductBuilder() {
+export default function ProductBuilder({ bare = false }: { bare?: boolean }) {
   const [step, setStep] = useState(0);
   const [type, setType] = useState("AI Product");
   const [goal, setGoal] = useState("");
@@ -50,13 +50,20 @@ export default function ProductBuilder() {
   };
 
   return (
-    <section id="builder" className="relative py-24 border-t border-white/5">
+    <section id="builder" className="relative py-20 sm:py-24 border-t border-white/5">
       <div className="mx-auto max-w-7xl px-4 sm:px-6">
+        {!bare && (
         <SectionHeading
           eyebrow="Product builder"
           title={<>Have an idea? <span className="text-[#c8ff3d]">Build your blueprint.</span></>}
           sub="A working mini-app inside this site. Answer three questions — get an architecture blueprint. Frontend-only demo; the real build happens with the studio."
         />
+        )}
+        {bare && (
+          <Reveal>
+            <p className="font-display text-xl font-bold">Answer three questions — get an architecture blueprint.</p>
+          </Reveal>
+        )}
 
         <Reveal delay={0.1} className="mt-10">
           <div className="grid lg:grid-cols-[1fr_1.1fr] gap-6">

@@ -2,6 +2,7 @@ import { useState } from "react";
 import { motion } from "framer-motion";
 import { Send, RotateCcw, ShieldAlert } from "lucide-react";
 import { Reveal, SectionHeading } from "./ui";
+import { StatusDot } from "../fx/fx";
 
 interface Analysis {
   intent: string;
@@ -50,7 +51,7 @@ const EXAMPLES = [
   "How do I upgrade my plan and get an invoice?",
 ];
 
-export default function LiveDemo() {
+export default function LiveDemo({ bare = false }: { bare?: boolean }) {
   const [input, setInput] = useState(EXAMPLES[0]);
   const [busy, setBusy] = useState(false);
   const [result, setResult] = useState<Analysis | null>(null);
@@ -66,13 +67,23 @@ export default function LiveDemo() {
   };
 
   return (
-    <section className="py-24 border-t border-white/5">
+    <section className="py-20 sm:py-24 border-t border-white/5">
       <div className="mx-auto max-w-7xl px-4 sm:px-6">
+        {!bare && (
         <SectionHeading
           eyebrow="Live demo · simulation"
           title={<>Watch support AI <span className="text-[#c8ff3d]">think.</span></>}
           sub="Frontend-only simulation of the triage pattern used in PayTrust_AI-style systems: intent → sentiment → priority → grounded reply. No backend, no fake claims."
         />
+        )}
+        {bare && (
+          <Reveal>
+            <div className="flex flex-wrap items-center gap-3">
+              <p className="font-display text-xl font-bold">Try the triage sim — type, analyze, inspect.</p>
+              <span className="ml-auto"><StatusDot label="sim online" /></span>
+            </div>
+          </Reveal>
+        )}
 
         <Reveal delay={0.1} className="mt-10">
           <div className="grid lg:grid-cols-[1fr_1fr] gap-6">

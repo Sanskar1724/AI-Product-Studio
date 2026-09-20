@@ -214,6 +214,8 @@ export interface Project {
   repo: string;
   demo?: string;
   tag: string;
+  stars?: number;
+  arch: string[];
 }
 
 export const PROJECTS: Project[] = [
@@ -225,6 +227,8 @@ export const PROJECTS: Project[] = [
     repo: `${GITHUB_URL}/CampusOps`,
     demo: "https://campus-ops-chi.vercel.app",
     tag: "AI Agent · SaaS",
+    stars: 3,
+    arch: ["App UI", "Agent runtime", "Tools + memory", "Database"],
   },
   {
     name: "PayTrust_AI",
@@ -233,6 +237,8 @@ export const PROJECTS: Project[] = [
     tech: ["Python", "Risk Scoring", "ML"],
     repo: `${GITHUB_URL}/PayTrust_AI`,
     tag: "Applied ML",
+    stars: 2,
+    arch: ["Event intake", "Risk scoring", "Bounded response", "Audit log"],
   },
   {
     name: "ReAct-Agent",
@@ -241,6 +247,8 @@ export const PROJECTS: Project[] = [
     tech: ["Python", "ReAct", "Tool Calling"],
     repo: `${GITHUB_URL}/ReAct-Agent`,
     tag: "AI Agent",
+    stars: 3,
+    arch: ["CLI", "Reasoning loop", "Tool sandbox", "JSON memory"],
   },
   {
     name: "MeetMe Digital Twin",
@@ -249,6 +257,8 @@ export const PROJECTS: Project[] = [
     tech: ["Qwen 2.5", "QLoRA", "Unsloth"],
     repo: `${GITHUB_URL}/MeetMe-Digital_Twin`,
     tag: "Fine-tuning",
+    stars: 3,
+    arch: ["ChatML dataset", "QLoRA trainer", "Qwen 2.5", "Eval prompts"],
   },
   {
     name: "Retail Lakehouse",
@@ -257,6 +267,8 @@ export const PROJECTS: Project[] = [
     tech: ["PySpark", "Databricks", "Delta Lake"],
     repo: `${GITHUB_URL}/Retail-Lakehouse-with-Databricks`,
     tag: "Data",
+    stars: 3,
+    arch: ["Raw ingest", "Bronze → Silver → Gold", "Unity Catalog", "SQL marts"],
   },
   {
     name: "Signalcraft AI",
@@ -265,6 +277,8 @@ export const PROJECTS: Project[] = [
     tech: ["Python", "LLMs", "Analytics"],
     repo: `${GITHUB_URL}/signalcraft-ai`,
     tag: "AI Product",
+    stars: 2,
+    arch: ["Trend signals", "LLM analysis", "Content drafts", "History store"],
   },
   {
     name: "Cisco Troubleshooting AI",
@@ -273,6 +287,8 @@ export const PROJECTS: Project[] = [
     tech: ["Python", "LLMs", "Rules Engine"],
     repo: `${GITHUB_URL}/cisco-network-troubleshooting-ai`,
     tag: "AI Assistant",
+    stars: 4,
+    arch: ["Device evidence", "Rules engine", "LLM explainer", "Fix playbook"],
   },
   {
     name: "Aarogya Setu Plus",
@@ -281,6 +297,7 @@ export const PROJECTS: Project[] = [
     tech: ["React", "TypeScript", "Node.js", "MongoDB", "WebRTC"],
     repo: `${GITHUB_URL}/Aarogya-Setu-Plus`,
     tag: "SaaS",
+    arch: ["React frontend", "Node API", "MongoDB", "WebRTC media"],
   },
 ];
 

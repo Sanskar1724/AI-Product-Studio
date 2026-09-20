@@ -3,15 +3,14 @@ import { ArrowRight } from "lucide-react";
 import Hero from "../components/Hero";
 import AudienceSelector from "../components/AudienceSelector";
 import CapabilitySystem from "../components/CapabilitySystem";
-import LiveDemo from "../components/LiveDemo";
-import Process from "../components/Process";
 import { Reveal } from "../components/ui";
+import { PageShell } from "../fx/fx";
 
 const TICKER = ["AI Agents", "RAG Systems", "SaaS", "Automation", "Data Pipelines", "Fine-tuning", "Dashboards", "APIs", "Support AI", "Lakehouse ETL"];
 
 export default function Home() {
   return (
-    <>
+    <PageShell tone="ai">
       <Hero />
       {/* capability ticker */}
       <div className="border-y border-white/8 bg-white/[0.015] py-4 overflow-hidden" aria-hidden>
@@ -25,12 +24,10 @@ export default function Home() {
       </div>
       <AudienceSelector />
       <CapabilitySystem />
-      <LiveDemo />
-      <Process />
-      <section className="py-20 border-t border-white/5">
+      <section className="py-16 sm:py-20 border-t border-white/5">
         <div className="mx-auto max-w-7xl px-4 sm:px-6">
           <Reveal>
-            <div className="rounded-3xl border border-[#c8ff3d]/25 bg-gradient-to-br from-[#c8ff3d]/[0.07] to-transparent p-8 sm:p-12 flex flex-col lg:flex-row lg:items-center gap-6">
+            <div className="rounded-3xl g-border p-8 sm:p-12 flex flex-col lg:flex-row lg:items-center gap-6">
               <div className="flex-1">
                 <h2 className="font-display text-3xl sm:text-4xl font-bold tracking-tight">What should we build?</h2>
                 <p className="mt-2 text-[#9aa4b2]">Configure your blueprint, estimate scope, or just bring the idea as it is.</p>
@@ -47,6 +44,6 @@ export default function Home() {
           </Reveal>
         </div>
       </section>
-    </>
+    </PageShell>
   );
 }

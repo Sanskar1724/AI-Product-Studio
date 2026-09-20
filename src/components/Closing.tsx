@@ -1,16 +1,28 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import { ArrowUpRight, Mail } from "lucide-react";
+import { ArrowUpRight, Copy, Mail } from "lucide-react";
 import { GithubIcon, LinkedinIcon } from "./ui";
 import { EMAIL, GITHUB_URL, LINKEDIN_URL, STUDIO_REPO } from "../data/studio";
 import { Logo, Reveal } from "./ui";
+import { Aurora, StatusDot, useToast } from "../fx/fx";
 
 const NEEDS = ["I have an idea", "I have a business problem", "I need automation", "I want to add AI", "I'm exploring an idea"];
 
 export function FinalCTA() {
   const [need, setNeed] = useState(NEEDS[0]);
   const [msg, setMsg] = useState("");
+  const [sent, setSent] = useState(false);
+  const toast = useToast();
   const href = `mailto:${EMAIL}?subject=${encodeURIComponent(`Project: ${need}`)}&body=${encodeURIComponent(msg || "Hi — here's what I want to build:\n\n")}`;
+
+  const copyMail = async () => {
+    try {
+      await navigator.clipboard.writeText(EMAIL);
+      toast("Email copied — talk soon");
+    } catch {
+      toast(EMAIL);
+    }
+  };
 
   return (
     <section id="start" className="relative py-28 border-t border-white/5 overflow-hidden">
@@ -33,11 +45,18 @@ export function FinalCTA() {
               placeholder="One paragraph: what should the product do? (opens in your email app — no data stored here)"
               className="w-full rounded-2xl bg-black/40 border border-white/10 p-4 text-[15px] placeholder:text-white/25 focus:border-[#c8ff3d]/60 outline-none resize-none" aria-label="Project description" />
             <div className="mt-4 flex flex-col sm:flex-row gap-3 sm:items-center">
-              <a href={href} className="inline-flex items-center justify-center gap-2 rounded-full bg-[#c8ff3d] text-black font-bold px-8 py-3.5 hover:shadow-[0_0_40px_-6px_rgba(200,255,61,0.7)] hover:-translate-y-0.5 transition-all">
-                Start a Project <ArrowUpRight size={17} />
+              <a
+                href={href}
+                onClick={() => { setSent(true); window.setTimeout(() => setSent(false), 2600); }}
+                className="inline-flex items-center justify-center gap-2 rounded-full bg-[#c8ff3d] text-black font-bold px-8 py-3.5 hover:shadow-[0_0_40px_-6px_rgba(200,255,61,0.7)] hover:-translate-y-0.5 transition-all"
+              >
+                {sent ? "✓ Opening your email app…" : <>{`Start a Project`} <ArrowUpRight size={17} /></>}
               </a>
-              <p className="text-xs text-[#9aa4b2]">Replies from <span className="text-white font-mono2">{EMAIL}</span> · typically within a couple of days</p>
+              <button onClick={copyMail} data-tip="Copy to clipboard" className="inline-flex items-center justify-center gap-2 rounded-full border border-white/15 px-5 py-3 text-sm font-semibold hover:border-[#c8ff3d]/60 hover:text-[#c8ff3d] transition-colors">
+                <Copy size={15} /> {EMAIL}
+              </button>
             </div>
+            <p className="mt-3 text-xs text-[#9aa4b2]">Typically replies within a couple of days · no data stored here</p>
           </div>
         </Reveal>
       </div>
@@ -46,9 +65,29 @@ export function FinalCTA() {
 }
 
 export function Footer() {
+  const [time, setTime] = useState("");
+  useEffect(() => {
+    const tick = () => setTime(new Date().toLocaleTimeString("en-IN", { timeZone: "Asia/Kolkata", hour: "2-digit", minute: "2-digit", second: "2-digit" }));
+    tick();
+    const id = window.setInterval(tick, 1000);
+    return () => window.clearInterval(id);
+  }, []);
+
   return (
-    <footer className="border-t border-white/8 py-14">
-      <div className="mx-auto max-w-7xl px-4 sm:px-6">
+    <footer className="relative border-t border-white/8 pt-10 pb-8 overflow-hidden">
+      <Aurora blobs={[["#c8ff3d", "5%", "60%", 320, 0.05], ["#8b7bff", "85%", "20%", 360, 0.07]]} />
+      {/* status strip */}
+      <div className="relative mx-auto max-w-7xl px-4 sm:px-6">
+        <div className="flex flex-wrap items-center gap-x-6 gap-y-2 rounded-2xl border border-white/8 bg-black/30 px-5 py-3">
+          <StatusDot label="AI online" />
+          <StatusDot color="#5eead4" label="build ready" pulse={false} />
+          <span className="font-mono2 text-[11px] tracking-widest text-[#9aa4b2] uppercase">Pune · {time || "--:--:--"}</span>
+          <button onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })} data-tip="Back to top" className="ml-auto font-mono2 text-[11px] tracking-widest text-white/50 hover:text-[#c8ff3d] transition-colors uppercase">
+            ↑ top
+          </button>
+        </div>
+      </div>
+      <div className="relative mx-auto max-w-7xl px-4 sm:px-6 mt-10">
         <div className="grid md:grid-cols-[1.2fr_1fr_1fr] gap-10">
           <div>
             <Logo />
@@ -75,9 +114,13 @@ export function Footer() {
             </ul>
           </div>
         </div>
-        <div className="mt-12 pt-6 border-t border-white/8 flex flex-col sm:flex-row gap-2 justify-between text-xs text-white/35 font-mono2">
+        <div className="mt-10 pt-6 border-t border-white/8 flex flex-col sm:flex-row gap-2 justify-between text-xs text-white/35 font-mono2">
           <span>© 2026 Forge // AI Product Studio. All systems operational.</span>
-          <span>No clients invented · No metrics fabricated · Code is the proof.</span>
+          <span className="flex flex-wrap gap-x-4 gap-y-1">
+            <span data-tip="Try the Konami code">↑↑↓↓←→←→BA</span>
+            <span>⌘K to explore</span>
+            <span>No clients invented · No metrics fabricated · Code is the proof.</span>
+          </span>
         </div>
       </div>
     </footer>

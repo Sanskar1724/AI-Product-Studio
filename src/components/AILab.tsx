@@ -8,22 +8,29 @@ const STATUS = {
   exploring: { label: "Exploring", cls: "text-[#8b7bff] border-[#8b7bff]/40 bg-[#8b7bff]/10" },
 } as const;
 
-export default function AILab() {
+export default function AILab({ bare = false }: { bare?: boolean }) {
   return (
-    <section id="lab" className="py-24 border-t border-white/5 relative overflow-hidden">
+    <section id="lab" className="py-20 sm:py-24 border-t border-white/5 relative overflow-hidden">
       <div className="absolute top-0 right-0 w-[500px] h-[400px] bg-[#8b7bff]/[0.05] blur-[100px] rounded-full" aria-hidden />
       <div className="mx-auto max-w-7xl px-4 sm:px-6 relative">
+        {!bare && (
         <SectionHeading
           eyebrow="AI Lab"
           title={<>Experiments, models and <span className="text-[#c8ff3d]">ideas in motion.</span></>}
           sub="Real work from public repositories — fine-tuning, agents, transformers and applied ML. No fabricated metrics; status and code links only."
         />
+        )}
+        {bare && (
+          <Reveal>
+            <p className="font-mono2 text-xs text-[#9aa4b2]">STATUS KEY — <span className="text-[#c8ff3d]">● active</span> · <span className="text-white">● shipped</span> · no fabricated metrics anywhere</p>
+          </Reveal>
+        )}
         <div className="mt-10 grid md:grid-cols-2 lg:grid-cols-3 gap-5">
           {EXPERIMENTS.map((e, i) => {
             const st = STATUS[e.status];
             return (
               <Reveal key={e.no} delay={(i % 3) * 0.08}>
-                <article className="rounded-3xl card-border p-6 h-full flex flex-col hover:border-[#c8ff3d]/25 transition-colors">
+                <article className="spot rounded-3xl card-border p-6 h-full flex flex-col hover:border-[#c8ff3d]/25 transition-colors">
                   <div className="flex items-center justify-between">
                     <span className="font-mono2 text-xs text-[#9aa4b2]">{e.no}</span>
                     <span className={`rounded-full border px-3 py-1 text-[11px] font-bold ${st.cls}`}>{st.label}</span>
