@@ -1,4 +1,5 @@
 import { Sparkles, Layers, Workflow, Code2, Database, FlaskConical, ArrowUpRight } from "lucide-react";
+import { Link } from "react-router-dom";
 import { SERVICES } from "../data/studio";
 import { Reveal, SectionHeading } from "./ui";
 
@@ -22,9 +23,9 @@ export default function Services() {
             sub="Six build tracks. Every one ships as working software — not slides."
           />
           <Reveal delay={0.2}>
-            <a href="#builder" className="inline-flex items-center gap-2 text-sm font-semibold text-[#c8ff3d] hover:gap-3 transition-all">
+            <Link to="/builder" className="inline-flex items-center gap-2 text-sm font-semibold text-[#c8ff3d] hover:gap-3 transition-all">
               Try the Product Builder <ArrowUpRight size={16} />
-            </a>
+            </Link>
           </Reveal>
         </div>
 
@@ -47,9 +48,9 @@ export default function Services() {
                       </li>
                     ))}
                   </ul>
-                  <a href="#start" className="mt-6 inline-flex items-center gap-1.5 text-sm font-semibold text-white group-hover:text-[#c8ff3d] transition-colors">
+                  <Link to="/start" className="mt-6 inline-flex items-center gap-1.5 text-sm font-semibold text-white group-hover:text-[#c8ff3d] transition-colors">
                     {s.cta} <span aria-hidden className="transition-transform group-hover:translate-x-1">→</span>
-                  </a>
+                  </Link>
                 </article>
               </Reveal>
             );

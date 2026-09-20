@@ -1,6 +1,7 @@
 import { useMemo, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { ArrowRight, RotateCcw, Cpu, Check } from "lucide-react";
+import { Link } from "react-router-dom";
 import { Reveal, SectionHeading } from "./ui";
 
 const TYPES = ["AI Product", "SaaS", "Website", "Automation", "Data Platform", "Custom Software"];
@@ -150,7 +151,7 @@ export default function ProductBuilder() {
                           <button onClick={() => { setStep(0); setDone(false); }} className="rounded-full border border-white/15 px-5 py-2.5 text-sm font-semibold hover:border-[#c8ff3d]/60 hover:text-[#c8ff3d]">
                             <span className="inline-flex items-center gap-1.5"><RotateCcw size={14} /> Start over</span>
                           </button>
-                          <a href="#start" className="rounded-full bg-[#c8ff3d] text-black px-5 py-2.5 text-sm font-bold">Start this project →</a>
+                          <Link to="/start" className="rounded-full bg-[#c8ff3d] text-black px-5 py-2.5 text-sm font-bold">Start this project →</Link>
                         </div>
                       </div>
                     )}

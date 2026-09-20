@@ -1,4 +1,5 @@
 import { motion } from "framer-motion";
+import { Link } from "react-router-dom";
 import type { ReactNode } from "react";
 
 export function Reveal({ children, delay = 0, className = "" }: { children: ReactNode; delay?: number; className?: string }) {
@@ -46,11 +47,13 @@ export function SectionHeading({
 export function MagneticButton({
   children,
   href,
+  to,
   variant = "primary",
   className = "",
 }: {
   children: ReactNode;
-  href: string;
+  href?: string;
+  to?: string;
   variant?: "primary" | "ghost";
   className?: string;
 }) {
@@ -60,16 +63,28 @@ export function MagneticButton({
     variant === "primary"
       ? "bg-[#c8ff3d] text-black px-6 py-3 hover:shadow-[0_0_40px_-6px_rgba(200,255,61,0.6)] hover:-translate-y-0.5"
       : "border border-white/15 text-white px-6 py-3 hover:border-[#c8ff3d]/60 hover:text-[#c8ff3d] hover:-translate-y-0.5";
-  return (
-    <a href={href} className={`${base} ${styles} ${className}`}>
+  const inner = (
+    <>
       {children}
       <span aria-hidden className="transition-transform duration-300 group-hover:translate-x-1">→</span>
+    </>
+  );
+  if (to) {
+    return (
+      <Link to={to} className={`${base} ${styles} ${className}`}>
+        {inner}
+      </Link>
+    );
+  }
+  return (
+    <a href={href ?? "#"} className={`${base} ${styles} ${className}`}>
+      {inner}
     </a>
   );
 }
-
-export function Logo({ compact = false }: { compact?: boolean }) {  return (
-    <a href="#top" className="flex items-center gap-2.5" aria-label="Forge home">
+export function Logo({ compact = false }: { compact?: boolean }) {
+  return (
+    <Link to="/" className="flex items-center gap-2.5" aria-label="Forge home">
       <svg width={compact ? 28 : 32} height={compact ? 28 : 32} viewBox="0 0 64 64" aria-hidden>
         <rect width="64" height="64" rx="14" fill="#0e1422" stroke="rgba(255,255,255,0.12)" />
         <path d="M20 44 L32 12 L44 44" fill="none" stroke="#C8FF3D" strokeWidth="4" strokeLinecap="round" strokeLinejoin="round" />
@@ -80,7 +95,7 @@ export function Logo({ compact = false }: { compact?: boolean }) {  return (
         FORGE<span className="text-[#c8ff3d]">//</span>
         <span className="hidden sm:inline text-[#9aa4b2] font-medium text-[13px] ml-2">AI Product Studio</span>
       </span>
-    </a>
+    </Link>
   );
 }
 

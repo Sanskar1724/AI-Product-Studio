@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { Link } from "react-router-dom";
 import { ArrowUpRight, Mail } from "lucide-react";
 import { GithubIcon, LinkedinIcon } from "./ui";
 import { EMAIL, GITHUB_URL, LINKEDIN_URL, STUDIO_REPO } from "../data/studio";
@@ -59,8 +60,8 @@ export function Footer() {
           <nav aria-label="Footer">
             <p className="font-mono2 text-[11px] tracking-[0.2em] text-[#9aa4b2]">STUDIO</p>
             <ul className="mt-4 space-y-2.5 text-sm">
-              {[["Services", "#build"], ["AI Lab", "#lab"], ["Built & Tested", "#work"], ["How It Works", "#process"], ["Start a Project", "#start"]].map(([l, h]) => (
-                <li key={h}><a href={h} className="text-[#c6cdd8] hover:text-[#c8ff3d] transition-colors">{l}</a></li>
+              {[["Services", "/services"], ["Builder", "/builder"], ["Automation", "/automation"], ["AI Lab", "/lab"], ["Built & Tested", "/work"], ["Start a Project", "/start"]].map(([l, h]) => (
+                <li key={h}><Link to={h} className="text-[#c6cdd8] hover:text-[#c8ff3d] transition-colors">{l}</Link></li>
               ))}
             </ul>
           </nav>

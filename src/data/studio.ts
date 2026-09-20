@@ -326,3 +326,178 @@ export const SOLUTIONS = [
   { for: "Developers", what: "Accelerate: agent scaffolds, RAG starters and review of your AI architecture.", icon: "code" },
   { for: "Operators", what: "Automate ops: triage queues, alerts, reports and integrations that just run.", icon: "gear" },
 ];
+
+export interface Audience {
+  id: string;
+  label: string;
+  headline: string;
+  copy: string;
+  picks: string[];
+  cta: string;
+  href: string;
+}
+
+export const AUDIENCES: Audience[] = [
+  {
+    id: "idea",
+    label: "I have an idea",
+    headline: "From napkin sketch to working product.",
+    copy: "Bring the idea as it is — rough is fine. You'll leave the first call with a scoped MVP and an architecture sketch.",
+    picks: ["MVP scoping", "Prototype", "AI Products", "SaaS"],
+    cta: "Blueprint my idea",
+    href: "/builder",
+  },
+  {
+    id: "business",
+    label: "I run a business",
+    headline: "Remove the busywork draining your week.",
+    copy: "Support triage, reporting, notifications and spreadsheet chaos — replaced with automations and dashboards that just run.",
+    picks: ["Automation", "AI Support", "Internal Tools", "Analytics"],
+    cta: "Automate my ops",
+    href: "/automation",
+  },
+  {
+    id: "startup",
+    label: "I'm building a startup",
+    headline: "Ship the MVP that earns the next conversation.",
+    copy: "Auth, database, dashboard and one killer AI feature — the smallest version investors and users can touch.",
+    picks: ["MVP", "SaaS", "AI Products", "Prototype"],
+    cta: "Scope the MVP",
+    href: "/builder",
+  },
+  {
+    id: "student",
+    label: "I'm a student",
+    headline: "Build the project that teaches you the stack.",
+    copy: "Guided, portfolio-grade builds with clean code you can explain line by line — AI/ML, web apps and data pipelines.",
+    picks: ["Technical Projects", "AI/ML", "Research", "Development"],
+    cta: "See proof of work",
+    href: "/work",
+  },
+  {
+    id: "research",
+    label: "I'm researching AI",
+    headline: "Turn papers into runnable systems.",
+    copy: "Fine-tunes, evals, agent scaffolds and honest ablations — experiments with methods, datasets and code you can inspect.",
+    picks: ["Fine-tuning", "Agents", "Evaluation", "Prototypes"],
+    cta: "Explore the lab",
+    href: "/lab",
+  },
+];
+
+export interface Workflow {
+  id: string;
+  label: string;
+  trigger: string;
+  steps: { node: string; detail: string }[];
+  result: string;
+}
+
+export const WORKFLOWS: Workflow[] = [
+  {
+    id: "support",
+    label: "Customer Support",
+    trigger: "New ticket arrives",
+    steps: [
+      { node: "AI", detail: "Classify intent, sentiment, priority" },
+      { node: "DECISION", detail: "Auto-draft or escalate?" },
+      { node: "ACTION", detail: "Draft grounded reply" },
+      { node: "DATABASE", detail: "Log ticket + resolution" },
+    ],
+    result: "Inbox triaged, replies drafted, humans approve",
+  },
+  {
+    id: "leads",
+    label: "Lead Management",
+    trigger: "New signup / inquiry",
+    steps: [
+      { node: "AI", detail: "Score fit + extract needs" },
+      { node: "DECISION", detail: "Route: hot, nurture, archive" },
+      { node: "ACTION", detail: "Personalized follow-up" },
+      { node: "DATABASE", detail: "CRM updated + reminders" },
+    ],
+    result: "Every lead scored, routed and followed up",
+  },
+  {
+    id: "reporting",
+    label: "Reporting",
+    trigger: "Schedule / new data lands",
+    steps: [
+      { node: "AI", detail: "Summarize changes + anomalies" },
+      { node: "DECISION", detail: "Needs attention?" },
+      { node: "ACTION", detail: "Generate digest + charts" },
+      { node: "DATABASE", detail: "Snapshot stored for history" },
+    ],
+    result: "Stakeholders get answers, not spreadsheets",
+  },
+  {
+    id: "notify",
+    label: "Notifications",
+    trigger: "Event fires (payment, alert, update)",
+    steps: [
+      { node: "AI", detail: "Decide urgency + channel" },
+      { node: "DECISION", detail: "Notify now or batch?" },
+      { node: "ACTION", detail: "Send via mail / chat / SMS" },
+      { node: "DATABASE", detail: "Delivery + receipt logged" },
+    ],
+    result: "Right message, right channel, zero spam",
+  },
+];
+
+export interface Architecture {
+  id: string;
+  label: string;
+  layers: { node: string; detail: string }[];
+  note: string;
+}
+
+export const ARCHITECTURES: Architecture[] = [
+  {
+    id: "ai",
+    label: "AI Product",
+    layers: [
+      { node: "USER", detail: "Chat / app interface" },
+      { node: "FRONTEND", detail: "React + TypeScript" },
+      { node: "API", detail: "FastAPI — validated routes" },
+      { node: "AI", detail: "LLM + retrieval + tools" },
+      { node: "DATABASE", detail: "Postgres + vector store" },
+    ],
+    note: "Every AI answer is grounded in retrieved context — the model never freelances facts in v1.",
+  },
+  {
+    id: "saas",
+    label: "SaaS",
+    layers: [
+      { node: "USER", detail: "Marketing + app" },
+      { node: "FRONTEND", detail: "React + TypeScript" },
+      { node: "API", detail: "Node / FastAPI + auth" },
+      { node: "WORKERS", detail: "Jobs, emails, webhooks" },
+      { node: "DATABASE", detail: "PostgreSQL + storage" },
+    ],
+    note: "Boring-reliable core: auth, billing-ready structure, background jobs, documented API.",
+  },
+  {
+    id: "auto",
+    label: "Automation",
+    layers: [
+      { node: "TRIGGER", detail: "Webhook / schedule / event" },
+      { node: "ROUTER", detail: "Rules + AI classifier" },
+      { node: "ACTIONS", detail: "API calls, drafts, alerts" },
+      { node: "HUMAN", detail: "Approve high-stakes steps" },
+      { node: "DATABASE", detail: "Audit log of everything" },
+    ],
+    note: "Automate the routine, escalate the risky — a full audit trail stays queryable.",
+  },
+  {
+    id: "data",
+    label: "Data Platform",
+    layers: [
+      { node: "SOURCES", detail: "Apps, sheets, APIs" },
+      { node: "INGEST", detail: "Spark jobs (bronze)" },
+      { node: "REFINE", detail: "Cleaned marts (silver → gold)" },
+      { node: "SERVE", detail: "SQL + dashboards + ML" },
+      { node: "CONSUME", detail: "Decisions, alerts, models" },
+    ],
+    note: "Medallion pattern on Spark + Delta Lake: raw stays raw, gold stays trustworthy.",
+  },
+];

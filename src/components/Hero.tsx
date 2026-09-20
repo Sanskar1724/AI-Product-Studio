@@ -1,10 +1,16 @@
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { motion } from "framer-motion";
 import { ArrowDown, ArrowUpRight } from "lucide-react";
 import { GithubIcon, MagneticButton } from "./ui";
 import { GITHUB_URL } from "../data/studio";
 
-const STAGES = ["IDEA", "ANALYZE", "AI + SOFTWARE + DATA", "BUILD", "PRODUCT"];
+const STAGES = [
+  { name: "IDEA", detail: "A call, a sketch, a messy doc. Rough is fine — vague in, sharp questions out." },
+  { name: "UNDERSTAND", detail: "Problem statement, users, success criteria. The smallest useful version gets defined." },
+  { name: "AI + SOFTWARE + DATA", detail: "The engine room: agents & RAG, app & APIs, pipelines & models — picked per problem." },
+  { name: "AUTOMATION", detail: "Triggers, decisions, actions. Repetitive work becomes systems that run themselves." },
+  { name: "PRODUCT", detail: "Deployed, documented, handed over. Live software you can use — not slides." },
+];
 
 function PipelineCanvas() {
   const ref = useRef<HTMLCanvasElement>(null);
@@ -66,8 +72,7 @@ function PipelineCanvas() {
       ctx.shadowBlur = 0;
 
       // nodes
-      STAGES.forEach((_, i) => {
-        const ny = h * (0.1 + i * 0.185) + yOff * 0.4;
+      STAGES.forEach((_, i) => {        const ny = h * (0.1 + i * 0.185) + yOff * 0.4;
         const active = Math.abs(py - ny) < h * 0.09;
         ctx.strokeStyle = active ? "#c8ff3d" : "rgba(255,255,255,0.22)";
         ctx.lineWidth = (active ? 2.5 : 1.5) * devicePixelRatio;
@@ -107,6 +112,7 @@ function PipelineCanvas() {
 }
 
 export default function Hero() {
+  const [sel, setSel] = useState<number | null>(null);
   return (
     <section id="top" className="relative min-h-screen flex items-center overflow-hidden pt-28 pb-16">
       <div className="absolute inset-0 grid-bg" aria-hidden />
@@ -152,10 +158,10 @@ export default function Hero() {
             transition={{ duration: 0.8, delay: 0.3 }}
             className="mt-8 flex flex-wrap gap-3"
           >
-            <MagneticButton href="#start">
+            <MagneticButton to="/start">
               Start a Project <ArrowUpRight size={16} />
             </MagneticButton>
-            <MagneticButton href="#build" variant="ghost">
+            <MagneticButton to="/services" variant="ghost">
               Explore What I Build <ArrowDown size={16} />
             </MagneticButton>
           </motion.div>
@@ -187,25 +193,41 @@ export default function Hero() {
           className="hidden lg:block rounded-2xl card-border p-5 bg-[#0a0e17]/80 backdrop-blur"
           aria-label="Idea to product pipeline"
         >
-          <p className="font-mono2 text-[11px] tracking-[0.2em] text-[#9aa4b2] mb-4">PIPELINE // LIVE</p>
+          <p className="font-mono2 text-[11px] tracking-[0.2em] text-[#9aa4b2] mb-4">PIPELINE // CLICK A NODE</p>
           <ol className="space-y-1">
             {STAGES.map((s, i) => (
               <motion.li
-                key={s}
+                key={s.name}
                 initial={{ opacity: 0, x: 16 }}
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ delay: 0.4 + i * 0.15 }}
-                className={`flex items-center gap-3 rounded-xl px-4 py-3 text-sm font-mono2 ${
-                  i === STAGES.length - 1
-                    ? "bg-[#c8ff3d] text-black font-bold"
-                    : "border border-white/8 text-[#c6cdd8]"
-                }`}
               >
-                <span className={`text-[11px] ${i === STAGES.length - 1 ? "text-black/60" : "text-[#c8ff3d]"}`}>
-                  0{i + 1}
-                </span>
-                {s}
-                {i < STAGES.length - 1 && <span className="ml-auto opacity-40">↓</span>}
+                <button
+                  onClick={() => setSel(sel === i ? null : i)}
+                  aria-expanded={sel === i}
+                  className={`w-full flex items-center gap-3 rounded-xl px-4 py-3 text-sm font-mono2 text-left transition-all ${
+                    i === STAGES.length - 1
+                      ? "bg-[#c8ff3d] text-black font-bold"
+                      : sel === i
+                        ? "border border-[#c8ff3d]/60 bg-[#c8ff3d]/[0.06] text-white"
+                        : "border border-white/8 text-[#c6cdd8] hover:border-white/25"
+                  }`}
+                >
+                  <span className={`text-[11px] ${i === STAGES.length - 1 ? "text-black/60" : "text-[#c8ff3d]"}`}>
+                    0{i + 1}
+                  </span>
+                  {s.name}
+                  {i < STAGES.length - 1 && <span className="ml-auto opacity-40">↓</span>}
+                </button>
+                {sel === i && (
+                  <motion.p
+                    initial={{ opacity: 0, height: 0 }}
+                    animate={{ opacity: 1, height: "auto" }}
+                    className="overflow-hidden px-4 py-2.5 text-[13px] text-[#9aa4b2] leading-relaxed"
+                  >
+                    {s.detail}
+                  </motion.p>
+                )}
               </motion.li>
             ))}
           </ol>

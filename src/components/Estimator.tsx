@@ -1,5 +1,6 @@
 import { useMemo, useState } from "react";
 import { ArrowUpRight } from "lucide-react";
+import { Link } from "react-router-dom";
 import { Reveal, SectionHeading } from "./ui";
 
 const TYPES = ["AI Product", "SaaS / Web App", "Automation", "Data Platform", "Research Prototype"];
@@ -73,7 +74,7 @@ export default function Estimator() {
                 {out.stages.map((s, i) => <li key={s} className="rounded-xl border border-white/10 p-3"><span className="text-[#c8ff3d] font-mono2 text-xs mr-2">0{i + 1}</span>{s}</li>)}
               </ol>
               <p className="mt-5 rounded-xl bg-white/[0.04] border border-white/10 p-3.5 text-sm text-[#9aa4b2]">Pricing: <span className="text-white font-semibold">Custom scope required</span> — fixed after a discovery call.</p>
-              <a href="#start" className="mt-5 inline-flex items-center gap-2 rounded-full bg-[#c8ff3d] text-black text-sm font-bold px-6 py-3">Start a Project <ArrowUpRight size={15} /></a>
+              <Link to="/start" className="mt-5 inline-flex items-center gap-2 rounded-full bg-[#c8ff3d] text-black text-sm font-bold px-6 py-3">Start a Project <ArrowUpRight size={15} /></Link>
             </div>
           </div>
         </Reveal>
