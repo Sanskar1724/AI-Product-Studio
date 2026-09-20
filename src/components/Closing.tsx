@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { ArrowUpRight, Copy, Mail } from "lucide-react";
 import { GithubIcon, LinkedinIcon } from "./ui";
 import { EMAIL, GITHUB_URL, LINKEDIN_URL, STUDIO_REPO } from "../data/studio";
@@ -66,6 +66,8 @@ export function FinalCTA() {
 
 export function Footer() {
   const [time, setTime] = useState("");
+  const { pathname } = useLocation();
+  const isLanding = pathname === "/";
   useEffect(() => {
     const tick = () => setTime(new Date().toLocaleTimeString("en-IN", { timeZone: "Asia/Kolkata", hour: "2-digit", minute: "2-digit", second: "2-digit" }));
     tick();
@@ -110,6 +112,7 @@ export function Footer() {
               <li><a href={GITHUB_URL} target="_blank" rel="noreferrer" className="inline-flex items-center gap-2 text-[#c6cdd8] hover:text-[#c8ff3d]"><GithubIcon size={15} /> GitHub — Sanskar1724</a></li>
               <li><a href={LINKEDIN_URL} target="_blank" rel="noreferrer" className="inline-flex items-center gap-2 text-[#c6cdd8] hover:text-[#c8ff3d]"><LinkedinIcon size={15} /> LinkedIn</a></li>
               <li><a href={`mailto:${EMAIL}`} className="inline-flex items-center gap-2 text-[#c6cdd8] hover:text-[#c8ff3d]"><Mail size={15} /> {EMAIL}</a></li>
+              {!isLanding && (
               <li>
                 <a
                   href={STUDIO_REPO}
@@ -124,6 +127,7 @@ export function Footer() {
                   </span>
                 </a>
               </li>
+              )}
             </ul>
           </div>
         </div>

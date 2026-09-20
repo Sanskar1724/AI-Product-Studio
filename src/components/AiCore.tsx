@@ -313,7 +313,6 @@ export default function AiCore({ active, onActive }: { active: CoreKey | null; o
               onFocus={() => onActive(c.id)}
               onBlur={() => onActive(null)}
               aria-expanded={on}
-              data-tip="Click to expand"
               className={`group w-40 sm:w-44 rounded-2xl border backdrop-blur-md p-3.5 text-left transition-all duration-300 active:scale-[0.97] ${
                 on ? "border-[#c8ff3d]/70 bg-[#0a0e17]/90 shadow-[0_0_36px_-8px_rgba(200,255,61,0.55)] scale-[1.04]" : "border-white/12 bg-[#0a0e17]/70 hover:border-white/30"
               }`}

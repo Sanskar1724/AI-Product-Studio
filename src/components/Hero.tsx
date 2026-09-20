@@ -3,8 +3,7 @@ import { AnimatePresence, motion, useScroll, useTransform } from "framer-motion"
 import { ArrowDown, ArrowUpRight, Bot, Database, Sparkles, Workflow } from "lucide-react";
 import { Link } from "react-router-dom";
 import AiCore, { type CoreKey } from "./AiCore";
-import { GithubIcon, MagneticButton } from "./ui";
-import { GITHUB_URL } from "../data/studio";
+import { MagneticButton } from "./ui";
 import { TECHS } from "../data/studio";
 import { Typewriter } from "../fx/fx";
 
@@ -157,20 +156,6 @@ export default function Hero() {
                 <span className="text-[#9aa4b2]">{t.sub}</span>
               </button>
             ))}
-          </motion.div>
-
-          <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 1.15, duration: 0.7 }}>
-            <a
-              href={GITHUB_URL}
-              target="_blank"
-              rel="noreferrer"
-              className="mt-6 inline-flex items-center gap-2.5 rounded-full g-border px-5 py-2.5 text-sm font-semibold hover:shadow-[0_0_32px_-8px_rgba(200,255,61,0.6)] hover:-translate-y-0.5 transition-all"
-            >
-              <GithubIcon size={16} className="text-[#c8ff3d]" />
-              <span className="font-mono2 text-[#c8ff3d]">26</span>
-              <span className="text-white/70">public repos — read the code</span>
-              <span aria-hidden className="text-[#c8ff3d]">→</span>
-            </a>
           </motion.div>
         </div>
 
