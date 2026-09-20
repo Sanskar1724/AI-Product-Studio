@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState, type MouseEvent } from "react";
+import { useEffect, useRef, useState, type MouseEvent, type PointerEvent as RPointerEvent } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { Bot, Workflow, Lightbulb, Package, Database } from "lucide-react";
 import { prefersReduced } from "../fx/fx";
@@ -252,6 +252,15 @@ export default function AiCore({ active, onActive }: { active: CoreKey | null; o
     mouse.current = { x: (e.clientX - r.left) / r.width - 0.5, y: (e.clientY - r.top) / r.height - 0.5 };
   };
 
+  const drift = (e: RPointerEvent<HTMLButtonElement>) => {
+    if (window.matchMedia("(hover: none)").matches) return;
+    const r = e.currentTarget.getBoundingClientRect();
+    const dx = e.clientX - (r.left + r.width / 2);
+    const dy = e.clientY - (r.top + r.height / 2);
+    e.currentTarget.style.transform = `translate(${(dx * 0.08).toFixed(1)}px, ${(dy * 0.12).toFixed(1)}px)`;
+  };
+  const undrift = (el: HTMLButtonElement) => { el.style.transform = ""; };
+
   const pos: Record<CoreKey, string> = {
     agents: "left-0 top-4 lg:top-8",
     automation: "right-0 top-0 lg:top-4",
@@ -299,12 +308,13 @@ export default function AiCore({ active, onActive }: { active: CoreKey | null; o
             <button
               onClick={() => onActive(on ? null : c.id)}
               onMouseEnter={() => onActive(c.id)}
-              onMouseLeave={() => onActive(null)}
+              onMouseLeave={(e) => { onActive(null); undrift(e.currentTarget); }}
+              onPointerMove={drift}
               onFocus={() => onActive(c.id)}
               onBlur={() => onActive(null)}
               aria-expanded={on}
               data-tip="Click to expand"
-              className={`group w-40 sm:w-44 rounded-2xl border backdrop-blur-md p-3.5 text-left transition-all duration-300 ${
+              className={`group w-40 sm:w-44 rounded-2xl border backdrop-blur-md p-3.5 text-left transition-all duration-300 active:scale-[0.97] ${
                 on ? "border-[#c8ff3d]/70 bg-[#0a0e17]/90 shadow-[0_0_36px_-8px_rgba(200,255,61,0.55)] scale-[1.04]" : "border-white/12 bg-[#0a0e17]/70 hover:border-white/30"
               }`}
             >

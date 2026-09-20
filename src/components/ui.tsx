@@ -61,8 +61,8 @@ export function MagneticButton({
     "group inline-flex items-center gap-2 rounded-full font-semibold text-sm transition-all duration-300 focus-visible:outline-none";
   const styles =
     variant === "primary"
-      ? "bg-[#c8ff3d] text-black px-6 py-3 hover:shadow-[0_0_40px_-6px_rgba(200,255,61,0.6)] hover:-translate-y-0.5"
-      : "border border-white/15 text-white px-6 py-3 hover:border-[#c8ff3d]/60 hover:text-[#c8ff3d] hover:-translate-y-0.5";
+      ? "bg-[#c8ff3d] text-black px-6 py-3 hover:shadow-[0_0_40px_-6px_rgba(200,255,61,0.6)] hover:-translate-y-0.5 active:translate-y-0 active:scale-95"
+      : "border border-white/15 text-white px-6 py-3 hover:border-[#c8ff3d]/60 hover:text-[#c8ff3d] hover:-translate-y-0.5 active:translate-y-0 active:scale-95";
   const inner = (
     <>
       {children}

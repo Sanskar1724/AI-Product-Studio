@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import { Send, RotateCcw, ShieldAlert } from "lucide-react";
 import { Reveal, SectionHeading } from "./ui";
@@ -55,6 +55,22 @@ export default function LiveDemo({ bare = false }: { bare?: boolean }) {
   const [input, setInput] = useState(EXAMPLES[0]);
   const [busy, setBusy] = useState(false);
   const [result, setResult] = useState<Analysis | null>(null);
+  const [tokens, setTokens] = useState(0);
+  const streaming = result !== null && tokens < result.reply.split(" ").length;
+
+  useEffect(() => {
+    if (!result) { setTokens(0); return; }
+    const total = result.reply.split(" ").length;
+    setTokens(0);
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) { setTokens(total); return; }
+    const id = window.setInterval(() => {
+      setTokens((t) => {
+        if (t >= total) { window.clearInterval(id); return t; }
+        return t + 1;
+      });
+    }, 45);
+    return () => window.clearInterval(id);
+  }, [result]);
 
   const run = () => {
     if (!input.trim() || busy) return;
@@ -168,7 +184,18 @@ export default function LiveDemo({ bare = false }: { bare?: boolean }) {
                     </div>
                   </div>
                   <div className="mt-4 rounded-xl border border-white/10 bg-black/30 p-4 text-sm leading-relaxed text-[#c6cdd8]">
-                    {result.reply}
+                    <p className="font-mono2 text-[10px] tracking-widest text-[#9aa4b2] mb-2 flex items-center gap-2">
+                      DRAFT REPLY
+                      {streaming ? (
+                        <span className="inline-flex items-center gap-1.5 text-[#c8ff3d]">
+                          <span className="w-1.5 h-1.5 rounded-full bg-[#c8ff3d] animate-pulse" /> STREAMING
+                        </span>
+                      ) : (
+                        <span className="text-white/40">● complete</span>
+                      )}
+                    </p>
+                    {result.reply.split(" ").slice(0, tokens).join(" ")}
+                    {streaming && <span className="term-caret" />}
                   </div>
                   <p className={`mt-3 text-xs font-mono2 ${result.escalate ? "text-red-400" : "text-[#c8ff3d]"}`}>
                     {result.escalate ? "● ESCALATED to human review" : "○ Resolved in draft — human approves send"}
