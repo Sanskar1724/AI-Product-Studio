@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { useNavigate } from "react-router-dom";
-import { Compass, FlaskConical, Hammer, Workflow, Wrench, Rocket, Home } from "lucide-react";
+import { Compass, FlaskConical, Hammer, Workflow, Wrench, Rocket, Home, User } from "lucide-react";
 
 const ITEMS = [
   { label: "Home", hint: "Living hero + audience", href: "/", icon: Home },
@@ -10,6 +10,7 @@ const ITEMS = [
   { label: "Automation", hint: "Workflow visualizer + before/after", href: "/automation", icon: Workflow },
   { label: "AI Lab", hint: "Experiments and fine-tuning", href: "/lab", icon: FlaskConical },
   { label: "Built & Tested", hint: "Real projects, case studies", href: "/work", icon: Wrench },
+  { label: "Meet the Builder", hint: "Sanskar Chandawar — profile, proof, contact", href: "/creator", icon: User },
   { label: "Start a Project", hint: "Intake + contact", href: "/start", icon: Rocket },
 ];
 

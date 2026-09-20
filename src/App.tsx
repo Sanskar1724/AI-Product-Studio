@@ -3,6 +3,7 @@ import { Route, Routes, useLocation } from "react-router-dom";
 import { motion, useScroll, useSpring } from "framer-motion";
 import Navbar from "./components/Navbar";
 import ScrollToTop from "./components/ScrollToTop";
+import RouteSeo from "./components/RouteSeo";
 import { Footer } from "./components/Closing";
 import { Cursor, ToastHost, useAnimatedFavicon, useKonami, useToast } from "./fx/fx";
 
@@ -13,6 +14,7 @@ const AutomationPage = lazy(() => import("./pages/Automation"));
 const LabPage = lazy(() => import("./pages/Lab"));
 const WorkPage = lazy(() => import("./pages/Work"));
 const StartPage = lazy(() => import("./pages/Start"));
+const Creator = lazy(() => import("./pages/Creator"));
 
 function Fallback() {
   return (
@@ -43,6 +45,7 @@ function Shell() {
         Skip to content
       </a>
       <ScrollToTop />
+      <RouteSeo />
       <Navbar />
       <main id="main">
         <Suspense fallback={<Fallback />}>
@@ -55,6 +58,7 @@ function Shell() {
               <Route path="/lab" element={<LabPage />} />
               <Route path="/work" element={<WorkPage />} />
               <Route path="/start" element={<StartPage />} />
+            <Route path="/creator" element={<Creator />} />
               <Route path="*" element={<Home />} />
             </Routes>
           </div>

@@ -32,6 +32,23 @@ export default function Home() {
           </Reveal>
         </div>
       </section>
+      {/* single doorway to the builder page — landing stays pure FORGE */}
+      <section className="pb-16 sm:pb-20">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6">
+          <Reveal>
+            <div className="flex justify-center">
+              <Link
+                to="/creator"
+                className="group inline-flex items-center gap-3 rounded-full border border-white/12 px-6 py-3 text-sm text-[#9aa4b2] hover:text-white hover:border-[#c8ff3d]/50 transition-all"
+              >
+                <span className="w-1.5 h-1.5 rounded-full bg-[#c8ff3d]" />
+                FORGE is built by one engineer
+                <span className="font-semibold text-white group-hover:text-[#c8ff3d] transition-colors">Meet the builder →</span>
+              </Link>
+            </div>
+          </Reveal>
+        </div>
+      </section>
     </PageShell>
   );
 }
