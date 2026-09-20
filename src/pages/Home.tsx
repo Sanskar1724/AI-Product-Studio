@@ -6,22 +6,10 @@ import CapabilitySystem from "../components/CapabilitySystem";
 import { Reveal } from "../components/ui";
 import { PageShell } from "../fx/fx";
 
-const TICKER = ["AI Agents", "RAG Systems", "SaaS", "Automation", "Data Pipelines", "Fine-tuning", "Dashboards", "APIs", "Support AI", "Lakehouse ETL"];
-
 export default function Home() {
   return (
     <PageShell tone="ai">
       <Hero />
-      {/* capability ticker */}
-      <div className="border-y border-white/8 bg-white/[0.015] py-4 overflow-hidden" aria-hidden>
-        <div className="flex gap-8 whitespace-nowrap animate-marquee w-max">
-          {[...TICKER, ...TICKER].map((t, i) => (
-            <span key={i} className="font-mono2 text-sm text-[#9aa4b2]">
-              <span className="text-[#c8ff3d] mr-8">◆</span>{t}
-            </span>
-          ))}
-        </div>
-      </div>
       <AudienceSelector />
       <CapabilitySystem />
       <section className="py-16 sm:py-20 border-t border-white/5">

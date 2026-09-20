@@ -1,5 +1,6 @@
 import { Suspense, lazy, useCallback } from "react";
 import { Route, Routes, useLocation } from "react-router-dom";
+import { motion, useScroll, useSpring } from "framer-motion";
 import Navbar from "./components/Navbar";
 import ScrollToTop from "./components/ScrollToTop";
 import { Footer } from "./components/Closing";
@@ -31,9 +32,12 @@ function Shell() {
   useAnimatedFavicon();
   const fire = useCallback(() => toast("Forge mode engaged — you found the easter egg"), [toast]);
   useKonami(fire);
+  const { scrollYProgress } = useScroll();
+  const progress = useSpring(scrollYProgress, { damping: 28, stiffness: 220 });
 
   return (
     <div className="grain min-h-screen bg-[#05070d] text-white antialiased">
+      <motion.div className="fixed top-0 left-0 right-0 h-[2px] bg-[#c8ff3d] z-[95] origin-left shadow-[0_0_12px_rgba(200,255,61,0.8)]" style={{ scaleX: progress }} aria-hidden />
       <Cursor />
       <a href="#main" className="sr-only focus:not-sr-only focus:fixed focus:top-3 focus:left-3 focus:z-[100] focus:bg-[#c8ff3d] focus:text-black focus:px-4 focus:py-2 focus:rounded-full focus:text-sm focus:font-bold">
         Skip to content

@@ -1,151 +1,95 @@
-import { useEffect, useRef, useState } from "react";
-import { motion } from "framer-motion";
-import { ArrowDown, ArrowUpRight } from "lucide-react";
+import { useEffect, useState } from "react";
+import { AnimatePresence, motion, useScroll, useTransform } from "framer-motion";
+import { ArrowDown, ArrowUpRight, Bot, Database, Sparkles, Workflow } from "lucide-react";
+import { Link } from "react-router-dom";
+import AiCore, { type CoreKey } from "./AiCore";
 import { GithubIcon, MagneticButton } from "./ui";
 import { GITHUB_URL } from "../data/studio";
+import { TECHS } from "../data/studio";
+import { Typewriter } from "../fx/fx";
 
-const STAGES = [
-  { name: "IDEA", detail: "A call, a sketch, a messy doc. Rough is fine — vague in, sharp questions out." },
-  { name: "UNDERSTAND", detail: "Problem statement, users, success criteria. The smallest useful version gets defined." },
-  { name: "AI + SOFTWARE + DATA", detail: "The engine room: agents & RAG, app & APIs, pipelines & models — picked per problem." },
-  { name: "AUTOMATION", detail: "Triggers, decisions, actions. Repetitive work becomes systems that run themselves." },
-  { name: "PRODUCT", detail: "Deployed, documented, handed over. Live software you can use — not slides." },
+const WORDS: { t: string; accent?: boolean }[] = [
+  { t: "Ideas" }, { t: "in." }, { t: "Intelligent", accent: true }, { t: "products", accent: true }, { t: "out." },
 ];
 
-function PipelineCanvas() {
-  const ref = useRef<HTMLCanvasElement>(null);
-  const mouse = useRef({ x: 0.5, y: 0.5 });
+const STATUS = ["SYSTEM ONLINE", "AI PIPELINE READY", "BUILD ENGINE READY", "AUTOMATION READY", "DEPLOY READY"];
 
-  useEffect(() => {
-    const canvas = ref.current;
-    if (!canvas) return;
-    const ctx = canvas.getContext("2d");
-    if (!ctx) return;
-    const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+const TAGS: { label: string; sub: string; core: CoreKey }[] = [
+  { label: "Agents + RAG", sub: "ReAct, tools, memory", core: "agents" },
+  { label: "SaaS + APIs", sub: "React, FastAPI, DBs", core: "products" },
+  { label: "Automation", sub: "Triggers, decisions", core: "automation" },
+  { label: "Data", sub: "ETL, analytics, pipelines", core: "data" },
+];
 
-    let w = 0, h = 0, raf = 0, t = 0;
-    const particles = Array.from({ length: 90 }, () => ({
-      x: Math.random(), y: Math.random(), s: Math.random() * 1.8 + 0.4, v: Math.random() * 0.0009 + 0.0003,
-    }));
-
-    const resize = () => {
-      const r = canvas.getBoundingClientRect();
-      w = canvas.width = r.width * devicePixelRatio;
-      h = canvas.height = r.height * devicePixelRatio;
-    };
-    resize();
-    window.addEventListener("resize", resize);
-
-    const onMove = (e: PointerEvent) => {
-      const r = canvas.getBoundingClientRect();
-      mouse.current = { x: (e.clientX - r.left) / r.width, y: (e.clientY - r.top) / r.height };
-    };
-    window.addEventListener("pointermove", onMove, { passive: true });
-
-    const draw = () => {
-      t += 0.008;
-      ctx.clearRect(0, 0, w, h);
-      const mx = (mouse.current.x - 0.5) * 24 * devicePixelRatio;
-      const my = (mouse.current.y - 0.5) * 18 * devicePixelRatio;
-      const cx = w / 2 + mx;
-      const yOff = my;
-      // flow spine
-      const grad = ctx.createLinearGradient(0, h * 0.1, 0, h * 0.85);
-      grad.addColorStop(0, "rgba(200,255,61,0.0)");
-      grad.addColorStop(0.5, "rgba(200,255,61,0.55)");
-      grad.addColorStop(1, "rgba(139,123,255,0.5)");
-      ctx.strokeStyle = grad;
-      ctx.lineWidth = 2 * devicePixelRatio;
-      ctx.beginPath();
-      ctx.moveTo(cx, h * 0.08);
-      ctx.bezierCurveTo(cx - 60 * devicePixelRatio, h * 0.3, cx + 60 * devicePixelRatio, h * 0.55, cx, h * 0.86);
-      ctx.stroke();
-
-      // travelling pulse
-      const py = h * (0.08 + ((t * 0.35) % 0.78));
-      ctx.fillStyle = "#c8ff3d";
-      ctx.shadowColor = "#c8ff3d";
-      ctx.shadowBlur = 18;
-      ctx.beginPath();
-      ctx.arc(cx + Math.sin(py * 0.004) * 20 * devicePixelRatio, py, 4 * devicePixelRatio, 0, Math.PI * 2);
-      ctx.fill();
-      ctx.shadowBlur = 0;
-
-      // nodes
-      STAGES.forEach((_, i) => {        const ny = h * (0.1 + i * 0.185) + yOff * 0.4;
-        const active = Math.abs(py - ny) < h * 0.09;
-        ctx.strokeStyle = active ? "#c8ff3d" : "rgba(255,255,255,0.22)";
-        ctx.lineWidth = (active ? 2.5 : 1.5) * devicePixelRatio;
-        ctx.beginPath();
-        ctx.arc(cx, ny, (active ? 9 : 6) * devicePixelRatio, 0, Math.PI * 2);
-        ctx.stroke();
-        if (active) {
-          ctx.fillStyle = "rgba(200,255,61,0.15)";
-          ctx.beginPath();
-          ctx.arc(cx, ny, 18 * devicePixelRatio, 0, Math.PI * 2);
-          ctx.fill();
-        }
-      });
-
-      // particles
-      ctx.fillStyle = "rgba(255,255,255,0.5)";
-      particles.forEach((p) => {
-        p.y -= p.v;
-        if (p.y < 0) p.y = 1;
-        const px = (p.x * w + Math.sin(t * 2 + p.y * 8) * 8) + mx * p.y;
-        ctx.globalAlpha = 0.15 + p.s * 0.2;
-        ctx.fillRect(px, p.y * h, p.s * devicePixelRatio, p.s * devicePixelRatio);
-      });
-      ctx.globalAlpha = 1;
-
-      if (!reduce) raf = requestAnimationFrame(draw);
-    };
-    draw();
-    return () => {
-      cancelAnimationFrame(raf);
-      window.removeEventListener("resize", resize);
-      window.removeEventListener("pointermove", onMove);
-    };
-  }, []);
-
-  return <canvas ref={ref} className="absolute inset-0 w-full h-full" aria-hidden />;
-}
+const PROOF = [
+  { icon: Sparkles, label: "AI PRODUCTS" },
+  { icon: Bot, label: "AGENTS" },
+  { icon: Workflow, label: "AUTOMATION" },
+  { icon: Database, label: "DATA SYSTEMS" },
+];
 
 export default function Hero() {
-  const [sel, setSel] = useState<number | null>(null);
+  const [core, setCore] = useState<CoreKey | null>(null);
+  const [status, setStatus] = useState(0);
+  const { scrollYProgress } = useScroll();
+  const fade = useTransform(scrollYProgress, [0, 0.12], [1, 0]);
+  const rise = useTransform(scrollYProgress, [0, 0.12], [0, -70]);
+
+  useEffect(() => {
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    const id = window.setInterval(() => setStatus((s) => (s + 1) % STATUS.length), 2400);
+    return () => window.clearInterval(id);
+  }, []);
+
   return (
-    <section id="top" className="relative min-h-screen flex items-center overflow-hidden pt-28 pb-16">
+    <section id="top" className="relative overflow-hidden pt-28">
       <div className="absolute inset-0 grid-bg" aria-hidden />
-      <div className="absolute -top-40 left-1/2 -translate-x-1/2 w-[900px] h-[500px] rounded-full bg-[#c8ff3d]/[0.07] blur-[120px]" aria-hidden />
-      <PipelineCanvas />
+      <div className="absolute top-0 left-1/3 w-[600px] h-[380px] bg-[#c8ff3d]/[0.05] blur-[130px] rounded-full" aria-hidden />
 
-      <div className="relative mx-auto max-w-7xl px-4 sm:px-6 grid lg:grid-cols-[1.2fr_0.8fr] gap-12 items-center w-full">
+      <motion.div style={{ opacity: fade }} className="relative mx-auto max-w-7xl px-4 sm:px-6 grid lg:grid-cols-2 gap-10 items-center min-h-[82vh]">
+        {/* left */}
         <div>
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.7 }}
-            className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-4 py-1.5 text-xs font-mono2 text-[#c6cdd8]"
-          >
-            <span className="w-2 h-2 rounded-full bg-[#c8ff3d] animate-pulse" />
-            INDEPENDENT AI PRODUCT STUDIO — PUNE / REMOTE
-          </motion.div>
+          <div className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-4 py-1.5 font-mono2 text-[11px] text-[#c6cdd8]">
+            <span className="relative flex w-2 h-2">
+              <span className="absolute inline-flex w-full h-full rounded-full bg-[#c8ff3d] opacity-60 animate-ping" />
+              <span className="relative inline-flex w-2 h-2 rounded-full bg-[#c8ff3d]" />
+            </span>
+            <AnimatePresence mode="wait">
+              <motion.span
+                key={status}
+                initial={{ opacity: 0, y: 5 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -5 }}
+                transition={{ duration: 0.25 }}
+                data-tip="Interface concept — all demos run locally in your browser"
+              >
+                {STATUS[status]}
+              </motion.span>
+            </AnimatePresence>
+            <span className="text-white/25">·</span>
+            <span className="text-white/50">INDEPENDENT STUDIO</span>
+          </div>
 
-          <motion.h1
-            initial={{ opacity: 0, y: 32 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.1 }}
-            className="font-display mt-6 text-5xl sm:text-6xl lg:text-7xl font-bold leading-[0.98] tracking-tight text-balance"
-          >
-            Ideas in.
-            <br />
-            <span className="text-[#c8ff3d]">Intelligent products</span> out.
-          </motion.h1>
+          <h1 className="font-display mt-6 text-5xl sm:text-6xl lg:text-7xl font-bold leading-[0.98] tracking-tight" aria-label="Ideas in. Intelligent products out.">
+            {WORDS.map((wd, i) => (
+              <span key={i}>
+                <motion.span
+                  className={`inline-block mr-[0.24em] ${wd.accent ? "text-[#c8ff3d]" : ""}`}
+                  initial={{ opacity: 0, y: 26, rotateX: 24 }}
+                  animate={{ opacity: 1, y: 0, rotateX: 0 }}
+                  transition={{ duration: 0.65, delay: 0.08 + i * 0.09, ease: [0.21, 0.65, 0.35, 1] }}
+                >
+                  {wd.t}
+                </motion.span>
+                {i === 1 && <br />}
+              </span>
+            ))}
+          </h1>
 
           <motion.p
-            initial={{ opacity: 0, y: 24 }}
+            initial={{ opacity: 0, y: 18 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.2 }}
+            transition={{ duration: 0.7, delay: 0.55 }}
             className="mt-6 text-lg text-[#9aa4b2] max-w-xl leading-relaxed"
           >
             AI-powered software, automation and digital products — designed, built and shipped
@@ -153,93 +97,138 @@ export default function Hero() {
           </motion.p>
 
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ opacity: 0, y: 16 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.3 }}
+            transition={{ duration: 0.7, delay: 0.68 }}
             className="mt-8 flex flex-wrap gap-3"
           >
             <MagneticButton to="/start">
               Start a Project <ArrowUpRight size={16} />
             </MagneticButton>
-            <MagneticButton to="/services" variant="ghost">
-              Explore What I Build <ArrowDown size={16} />
-            </MagneticButton>
+            <a href="#next" className="group inline-flex items-center gap-2 rounded-full border border-white/15 text-white font-semibold text-sm px-6 py-3 hover:border-[#c8ff3d]/60 hover:text-[#c8ff3d] hover:-translate-y-0.5 transition-all">
+              Explore What I Build <ArrowDown size={16} className="transition-transform group-hover:translate-y-0.5" />
+            </a>
           </motion.div>
 
+          {/* mini terminal */}
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
-            transition={{ duration: 1, delay: 0.5 }}
-            className="mt-10 flex flex-wrap gap-x-8 gap-y-3 text-sm text-[#9aa4b2]"
+            transition={{ duration: 0.8, delay: 0.9 }}
+            className="mt-7 max-w-xl rounded-2xl border border-white/10 bg-black/50 overflow-hidden"
+            aria-label="Build console"
           >
-            {[
-              ["Agents + RAG", "ReAct, tools, memory"],
-              ["SaaS + APIs", "React, FastAPI, DBs"],
-              ["Data", "Spark, Delta, ETL"],
-            ].map(([a, b]) => (
-              <div key={a} className="flex items-center gap-2">
-                <span className="text-white font-semibold">{a}</span>
+            <div className="flex items-center gap-1.5 px-4 py-2 border-b border-white/8">
+              <span className="w-2 h-2 rounded-full bg-white/20" />
+              <span className="w-2 h-2 rounded-full bg-white/20" />
+              <span className="ml-1 font-mono2 text-[10px] text-[#9aa4b2]">forge — live</span>
+              <span className="ml-auto flex items-center gap-1.5 font-mono2 text-[10px] text-[#c8ff3d]">
+                <span className="w-1.5 h-1.5 rounded-full bg-[#c8ff3d] animate-pulse" /> AI PROCESSING
+              </span>
+            </div>
+            <div className="px-4 py-3 font-mono2 text-[12px] leading-relaxed text-[#c6cdd8] min-h-[86px]">
+              <Typewriter
+                lines={["$ forge build --idea \"support copilot\"", "✓ agents linked · rag indexed · pipeline ready", "→ output: product.ship"]}
+                speed={22}
+              />
+            </div>
+          </motion.div>
+
+          {/* capability tags */}
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.8, delay: 1.05 }}
+            className="mt-6 flex flex-wrap gap-x-7 gap-y-3 text-sm"
+          >
+            {TAGS.map((t) => (
+              <button
+                key={t.label}
+                onMouseEnter={() => setCore(t.core)}
+                onMouseLeave={() => setCore(null)}
+                onFocus={() => setCore(t.core)}
+                onBlur={() => setCore(null)}
+                onClick={() => setCore(t.core)}
+                className="group flex items-center gap-2 text-left"
+                data-tip="Hover to light up the core"
+              >
+                <span className={`font-semibold transition-colors ${core === t.core ? "text-[#c8ff3d]" : "text-white group-hover:text-[#c8ff3d]"}`}>{t.label}</span>
                 <span className="text-white/30">·</span>
-                <span>{b}</span>
-              </div>
+                <span className="text-[#9aa4b2]">{t.sub}</span>
+              </button>
             ))}
+          </motion.div>
+
+          <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 1.15, duration: 0.7 }}>
+            <a
+              href={GITHUB_URL}
+              target="_blank"
+              rel="noreferrer"
+              className="mt-6 inline-flex items-center gap-2.5 rounded-full g-border px-5 py-2.5 text-sm font-semibold hover:shadow-[0_0_32px_-8px_rgba(200,255,61,0.6)] hover:-translate-y-0.5 transition-all"
+            >
+              <GithubIcon size={16} className="text-[#c8ff3d]" />
+              <span className="font-mono2 text-[#c8ff3d]">26</span>
+              <span className="text-white/70">public repos — read the code</span>
+              <span aria-hidden className="text-[#c8ff3d]">→</span>
+            </a>
           </motion.div>
         </div>
 
+        {/* right: AI core */}
         <motion.div
-          initial={{ opacity: 0, x: 32 }}
-          animate={{ opacity: 1, x: 0 }}
-          transition={{ duration: 0.9, delay: 0.25 }}
-          className="hidden lg:block rounded-2xl card-border p-5 bg-[#0a0e17]/80 backdrop-blur"
-          aria-label="Idea to product pipeline"
+          style={{ y: rise }}
+          initial={{ opacity: 0, scale: 0.96 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 1, delay: 0.3 }}
         >
-          <p className="font-mono2 text-[11px] tracking-[0.2em] text-[#9aa4b2] mb-4">PIPELINE // CLICK A NODE</p>
-          <ol className="space-y-1">
-            {STAGES.map((s, i) => (
-              <motion.li
-                key={s.name}
-                initial={{ opacity: 0, x: 16 }}
-                animate={{ opacity: 1, x: 0 }}
-                transition={{ delay: 0.4 + i * 0.15 }}
-              >
-                <button
-                  onClick={() => setSel(sel === i ? null : i)}
-                  aria-expanded={sel === i}
-                  className={`w-full flex items-center gap-3 rounded-xl px-4 py-3 text-sm font-mono2 text-left transition-all ${
-                    i === STAGES.length - 1
-                      ? "bg-[#c8ff3d] text-black font-bold"
-                      : sel === i
-                        ? "border border-[#c8ff3d]/60 bg-[#c8ff3d]/[0.06] text-white"
-                        : "border border-white/8 text-[#c6cdd8] hover:border-white/25"
-                  }`}
-                >
-                  <span className={`text-[11px] ${i === STAGES.length - 1 ? "text-black/60" : "text-[#c8ff3d]"}`}>
-                    0{i + 1}
-                  </span>
-                  {s.name}
-                  {i < STAGES.length - 1 && <span className="ml-auto opacity-40">↓</span>}
-                </button>
-                {sel === i && (
-                  <motion.p
-                    initial={{ opacity: 0, height: 0 }}
-                    animate={{ opacity: 1, height: "auto" }}
-                    className="overflow-hidden px-4 py-2.5 text-[13px] text-[#9aa4b2] leading-relaxed"
-                  >
-                    {s.detail}
-                  </motion.p>
-                )}
-              </motion.li>
-            ))}
-          </ol>
-          <a
-            href={GITHUB_URL}
-            target="_blank"
-            rel="noreferrer"
-            className="mt-4 flex items-center gap-2 text-sm text-[#9aa4b2] hover:text-white transition-colors"
-          >
-            <GithubIcon size={16} /> Proof lives on GitHub — agents, fine-tunes, lakehouses
-          </a>
+          <AiCore active={core} onActive={setCore} />
         </motion.div>
+      </motion.div>
+
+      {/* proof strip + tech marquee */}
+      <div id="next" className="relative mx-auto max-w-7xl px-4 sm:px-6 pb-16">
+        <motion.div
+          initial={{ opacity: 0, y: 24 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-60px" }}
+          transition={{ duration: 0.7 }}
+          className="rounded-3xl border border-white/10 bg-white/[0.02] backdrop-blur px-6 sm:px-10 py-6 grid grid-cols-2 lg:grid-cols-4 gap-6"
+        >
+          {PROOF.map((p) => (
+            <div key={p.label} className="group flex items-center gap-3 lg:justify-center lg:divide-x lg:divide-white/8">
+              <span className="text-[#c8ff3d] transition-transform duration-300 group-hover:scale-125 group-hover:-rotate-6 inline-block">
+                <p.icon size={20} />
+              </span>
+              <span className="font-mono2 text-xs font-bold tracking-[0.18em] lg:pl-6">{p.label}</span>
+            </div>
+          ))}
+        </motion.div>
+        <p className="mt-3 text-center font-mono2 text-[11px] text-white/30">Scope, not statistics — nothing invented.</p>
+
+        <div className="mt-8">
+          <p className="text-center font-mono2 text-[11px] tracking-[0.25em] text-[#9aa4b2]">TECH I WORK WITH</p>
+          <div className="mt-4 overflow-hidden group" role="list" aria-label="Technologies">
+            <div className="flex gap-3 whitespace-nowrap animate-marquee w-max group-hover:[animation-play-state:paused]">
+              {[...TECHS, ...TECHS].map((t, i) => (
+                <span
+                  key={`${t.name}-${i}`}
+                  role="listitem"
+                  data-tip={t.role}
+                  aria-label={`${t.name}: ${t.role}`}
+                  className="rounded-full border border-white/10 bg-white/[0.02] px-5 py-2 text-sm font-mono2 text-[#c6cdd8] hover:border-[#c8ff3d]/60 hover:text-white transition-colors cursor-default"
+                >
+                  {t.name}
+                </span>
+              ))}
+            </div>
+          </div>
+        </div>
+
+        <p className="mt-8 text-center text-sm">
+          <Link to="/services" className="inline-flex items-center gap-2 font-semibold text-[#c8ff3d] hover:gap-3.5 transition-all">
+            Enter the studio <ArrowDown size={15} />
+          </Link>
+        </p>
       </div>
     </section>
   );

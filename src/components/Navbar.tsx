@@ -1,7 +1,9 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, type PointerEvent } from "react";
 import { Link, NavLink } from "react-router-dom";
+import { motion } from "framer-motion";
 import { Menu, X, ArrowUpRight } from "lucide-react";
 import { Logo } from "./ui";
+import { StatusDot } from "../fx/fx";
 import CommandPalette from "./CommandPalette";
 
 const LINKS = [
@@ -41,18 +43,38 @@ export default function Navbar() {
                 key={l.href}
                 to={l.href}
                 className={({ isActive }) =>
-                  `px-4 py-2 rounded-full transition-colors ${isActive ? "text-[#c8ff3d] bg-[#c8ff3d]/10" : "text-[#c6cdd8] hover:text-white hover:bg-white/5"}`
+                  `relative px-4 py-2 rounded-full transition-colors ${isActive ? "text-[#c8ff3d]" : "text-[#c6cdd8] hover:text-white hover:bg-white/5"}`
                 }
               >
-                {l.label}
+                {({ isActive }) => (
+                  <>
+                    {isActive && (
+                      <motion.span
+                        layoutId="nav-active"
+                        className="absolute inset-0 rounded-full bg-[#c8ff3d]/10 border border-[#c8ff3d]/25"
+                        transition={{ type: "spring", damping: 30, stiffness: 400 }}
+                      />
+                    )}
+                    <span className="relative">{l.label}</span>
+                  </>
+                )}
               </NavLink>
             ))}
           </div>
-          <div className="hidden lg:flex items-center gap-2">
+          <div className="hidden lg:flex items-center gap-3">
+            <span className="hidden xl:block" data-tip="Interface status — demos run locally">
+              <StatusDot label="AI Online" />
+            </span>
             <CommandPalette />
             <Link
               to="/start"
-              className="inline-flex items-center gap-1.5 rounded-full bg-[#c8ff3d] text-black text-sm font-semibold px-5 py-2.5 hover:-translate-y-0.5 hover:shadow-[0_0_32px_-6px_rgba(200,255,61,0.7)] transition-all"
+              onPointerMove={(e: PointerEvent<HTMLAnchorElement>) => {
+                if (window.matchMedia("(hover: none)").matches) return;
+                const r = e.currentTarget.getBoundingClientRect();
+                e.currentTarget.style.transform = `translate(${((e.clientX - r.left - r.width / 2) * 0.12).toFixed(1)}px, ${((e.clientY - r.top - r.height / 2) * 0.18).toFixed(1)}px)`;
+              }}
+              onPointerLeave={(e) => { e.currentTarget.style.transform = ""; }}
+              className="inline-flex items-center gap-1.5 rounded-full bg-[#c8ff3d] text-black text-sm font-semibold px-5 py-2.5 hover:shadow-[0_0_32px_-6px_rgba(200,255,61,0.7)] transition-shadow"
             >
               Start a Project <ArrowUpRight size={16} />
             </Link>
