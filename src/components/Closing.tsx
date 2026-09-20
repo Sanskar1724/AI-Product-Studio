@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
-import { Link, useLocation } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { ArrowUpRight, Copy, Mail } from "lucide-react";
 import { GithubIcon, LinkedinIcon } from "./ui";
-import { EMAIL, GITHUB_URL, LINKEDIN_URL, STUDIO_REPO } from "../data/studio";
+import { EMAIL, GITHUB_URL, LINKEDIN_URL } from "../data/studio";
 import { Logo, Reveal } from "./ui";
 import { Aurora, StatusDot, useToast } from "../fx/fx";
 
@@ -66,8 +66,6 @@ export function FinalCTA() {
 
 export function Footer() {
   const [time, setTime] = useState("");
-  const { pathname } = useLocation();
-  const isLanding = pathname === "/";
   useEffect(() => {
     const tick = () => setTime(new Date().toLocaleTimeString("en-IN", { timeZone: "Asia/Kolkata", hour: "2-digit", minute: "2-digit", second: "2-digit" }));
     tick();
@@ -112,22 +110,6 @@ export function Footer() {
               <li><a href={GITHUB_URL} target="_blank" rel="noreferrer" className="inline-flex items-center gap-2 text-[#c6cdd8] hover:text-[#c8ff3d]"><GithubIcon size={15} /> GitHub — Sanskar1724</a></li>
               <li><a href={LINKEDIN_URL} target="_blank" rel="noreferrer" className="inline-flex items-center gap-2 text-[#c6cdd8] hover:text-[#c8ff3d]"><LinkedinIcon size={15} /> LinkedIn</a></li>
               <li><a href={`mailto:${EMAIL}`} className="inline-flex items-center gap-2 text-[#c6cdd8] hover:text-[#c8ff3d]"><Mail size={15} /> {EMAIL}</a></li>
-              {!isLanding && (
-              <li>
-                <a
-                  href={STUDIO_REPO}
-                  target="_blank"
-                  rel="noreferrer"
-                  className="group inline-flex items-center gap-2.5 rounded-2xl g-border px-4 py-3 font-semibold text-white hover:shadow-[0_0_32px_-8px_rgba(200,255,61,0.55)] hover:-translate-y-0.5 transition-all"
-                >
-                  <GithubIcon size={17} className="text-[#c8ff3d]" />
-                  <span>
-                    <span className="block text-sm">This site's repository</span>
-                    <span className="block font-mono2 text-[11px] text-[#9aa4b2] group-hover:text-[#c8ff3d] transition-colors">React · TS · Tailwind — open source →</span>
-                  </span>
-                </a>
-              </li>
-              )}
             </ul>
           </div>
         </div>
