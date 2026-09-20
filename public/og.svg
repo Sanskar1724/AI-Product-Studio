@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630">
+  <rect width="1200" height="630" fill="#05070D"/>
+  <path d="M480 460 L600 140 L720 460" fill="none" stroke="#C8FF3D" stroke-width="14" stroke-linecap="round" stroke-linejoin="round"/>
+  <circle cx="600" cy="350" r="26" fill="#05070D" stroke="#C8FF3D" stroke-width="12"/>
+  <text x="600" y="540" text-anchor="middle" font-family="Arial, sans-serif" font-size="52" font-weight="700" fill="#FFFFFF">FORGE — Ideas in. Intelligent products out.</text>
+</svg>
