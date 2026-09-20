@@ -10,7 +10,7 @@ const ITEMS = [
   { label: "Automation", hint: "Workflow visualizer + before/after", href: "/automation", icon: Workflow },
   { label: "AI Lab", hint: "Experiments and fine-tuning", href: "/lab", icon: FlaskConical },
   { label: "Built & Tested", hint: "Real projects, case studies", href: "/work", icon: Wrench },
-  { label: "Meet the Builder", hint: "Sanskar Chandawar — profile, proof, contact", href: "/creator", icon: User },
+  { label: "Meet the Creator", hint: "Sanskar Chandawar — profile, proof, contact", href: "/creator", icon: User },
   { label: "Start a Project", hint: "Intake + contact", href: "/start", icon: Rocket },
 ];
 

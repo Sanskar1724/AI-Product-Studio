@@ -2,7 +2,7 @@ export const CREATOR = {
   name: "Sanskar Chandawar",
   roles: ["Independent AI Builder", "AI / LLMs / Agents / Data / Software"],
   intro:
-    "I'm Sanskar Chandawar, a Computer Science Engineering student and independent builder working across AI/LLMs, agentic systems, data engineering, and full-stack software. I build practical systems to understand how modern AI can be turned into useful products.",
+    "I'm Sanskar Chandawar, a Computer Science Engineering student and independent creator working across AI/LLMs, agentic systems, data engineering, and full-stack software. I build practical systems to understand how modern AI can be turned into useful products.",
   education: {
     period: "2024 → Present",
     degree: "B.Tech in Computer Science Engineering",

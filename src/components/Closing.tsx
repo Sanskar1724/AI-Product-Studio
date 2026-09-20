@@ -98,7 +98,7 @@ export function Footer() {
           <nav aria-label="Footer">
             <p className="font-mono2 text-[11px] tracking-[0.2em] text-[#9aa4b2]">STUDIO</p>
             <ul className="mt-4 space-y-2.5 text-sm">
-              {[["Services", "/services"], ["Builder", "/builder"], ["Automation", "/automation"], ["AI Lab", "/lab"], ["Built & Tested", "/work"], ["Meet the Builder", "/creator"], ["Start a Project", "/start"]].map(([l, h]) => (
+              {[["Services", "/services"], ["Builder", "/builder"], ["Automation", "/automation"], ["AI Lab", "/lab"], ["Built & Tested", "/work"], ["Meet the Creator", "/creator"], ["Start a Project", "/start"]].map(([l, h]) => (
                 <li key={h}><Link to={h} className="text-[#c6cdd8] hover:text-[#c8ff3d] transition-colors">{l}</Link></li>
               ))}
             </ul>
@@ -111,7 +111,7 @@ export function Footer() {
                   to="/creator"
                   className="group inline-flex items-center gap-2 rounded-full bg-[#c8ff3d] text-black font-bold px-5 py-2.5 hover:shadow-[0_0_28px_-6px_rgba(200,255,61,0.7)] hover:-translate-y-0.5 active:scale-95 transition-all"
                 >
-                  Meet the builder <ArrowUpRight size={15} className="transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+                  Meet the creator <ArrowUpRight size={15} className="transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
                 </Link>
               </li>
             </ul>

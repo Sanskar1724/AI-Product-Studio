@@ -12,7 +12,7 @@ export default function ServicesPage() {
       <PageHeader
         eyebrow="Services"
         title={<>What can you get <span className="text-[#c8ff3d]">built for you?</span></>}
-        sub="Five disciplines, one builder. Probe the AI core, explore capabilities, inspect the architectures they'd run on."
+        sub="Five disciplines, one creator. Probe the AI core, explore capabilities, inspect the architectures they'd run on."
       />
       <section className="relative py-10">
         <AmbientParticles density={30} color="139,123,255" />

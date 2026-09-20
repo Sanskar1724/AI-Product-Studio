@@ -85,7 +85,7 @@ export default function Hero() {
             className="mt-6 text-lg text-[#9aa4b2] max-w-xl leading-relaxed"
           >
             AI-powered software, automation and digital products — designed, built and shipped
-            from idea to deployment by one builder. No agency telephone game.
+            from idea to deployment by one creator. No agency telephone game.
           </motion.p>
 
           <motion.div

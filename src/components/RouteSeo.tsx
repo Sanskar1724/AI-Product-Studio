@@ -4,7 +4,7 @@ import { useLocation } from "react-router-dom";
 const META: Record<string, { title: string; desc: string }> = {
   "/": {
     title: "Forge — Independent AI Product Studio | AI, Software & Automation",
-    desc: "Ideas in. Intelligent products out. AI products, SaaS, automation and data systems — designed, built and shipped by one builder.",
+    desc: "Ideas in. Intelligent products out. AI products, SaaS, automation and data systems — designed, built and shipped by one creator.",
   },
   "/services": {
     title: "Services — AI, Software, Automation & Data | FORGE//",
@@ -28,11 +28,11 @@ const META: Record<string, { title: string; desc: string }> = {
   },
   "/start": {
     title: "Start a Project | FORGE//",
-    desc: "Bring an idea, a problem or a workflow. Work directly with the builder.",
+    desc: "Bring an idea, a problem or a workflow. Work directly with the creator.",
   },
   "/creator": {
-    title: "Sanskar Chandawar — AI Builder | FORGE//",
-    desc: "Sanskar Chandawar is an independent AI builder working across LLMs, agentic AI, data engineering and software products.",
+    title: "Sanskar Chandawar — AI Creator | FORGE//",
+    desc: "Sanskar Chandawar is an independent AI creator working across LLMs, agentic AI, data engineering and software products.",
   },
 };
 

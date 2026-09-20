@@ -143,6 +143,10 @@ export default function BuiltTested({ bare = false }: { bare?: boolean }) {
                     </a>
                   )}
                 </div>
+                <p className="mt-4 flex items-center gap-2 text-xs text-[#9aa4b2]">
+                  <Star size={13} className="text-[#c8ff3d] shrink-0" />
+                  Like this build? Star the repo — or open a PR, contributions welcome.
+                </p>
               </motion.div>
             </motion.div>
           )}

@@ -23,7 +23,7 @@ function IdentityCard() {
         <div className="relative">
           <div className="flex items-center justify-between">
             <p className="font-display font-bold text-lg">FORGE<span className="text-[#c8ff3d]">//</span></p>
-            <StatusDot label="builder active" />
+            <StatusDot label="creator active" />
           </div>
           <p className="mt-6 font-mono2 text-[11px] tracking-[0.3em] text-[#9aa4b2]">BUILT BY</p>
           <p className="font-display text-3xl sm:text-4xl font-bold tracking-tight mt-1">SANSKAR</p>
@@ -57,8 +57,8 @@ export default function Creator() {
     <PageShell tone="ai">
       <PageHeader
         eyebrow="Creator"
-        title={<>THE BUILDER <span className="text-[#c8ff3d]">BEHIND FORGE</span></>}
-        sub="Independent AI builder focused on turning ideas into intelligent products, systems, and experiments."
+        title={<>THE CREATOR <span className="text-[#c8ff3d]">BEHIND FORGE</span></>}
+        sub="Independent AI creator focused on turning ideas into intelligent products, systems, and experiments."
       />
 
       {/* 1. hero */}
@@ -67,7 +67,7 @@ export default function Creator() {
           <div>
             <Reveal>
               <h2 className="font-display text-3xl sm:text-4xl font-bold tracking-tight">Sanskar Chandawar</h2>
-              <p className="mt-3 font-mono2 text-xs tracking-[0.2em] text-[#c8ff3d]">INDEPENDENT AI BUILDER</p>
+              <p className="mt-3 font-mono2 text-xs tracking-[0.2em] text-[#c8ff3d]">INDEPENDENT AI CREATOR</p>
               <p className="mt-1 font-mono2 text-xs tracking-[0.2em] text-[#9aa4b2]">AI / LLMs / AGENTS / DATA / SOFTWARE</p>
               <p className="mt-5 text-[#9aa4b2] leading-relaxed max-w-xl">{CREATOR.intro}</p>
             </Reveal>
@@ -216,6 +216,7 @@ export default function Creator() {
                     >
                       VIEW ON GITHUB <ArrowUpRight size={15} />
                     </a>
+                    <p className="mt-3 text-xs text-[#9aa4b2]">Useful? Star it — issues and PRs welcome.</p>
                   </article>
                 </Reveal>
               );

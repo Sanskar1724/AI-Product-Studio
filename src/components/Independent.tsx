@@ -20,7 +20,7 @@ export default function Independent() {
                 <Reveal key={r} delay={i * 0.06}>
                   <li className="rounded-xl border border-white/10 bg-white/[0.03] py-3 text-center text-sm font-mono2 text-[#c6cdd8]">
                     {r}
-                    <span className="block text-[10px] text-white/30 mt-0.5">same builder ↓</span>
+                    <span className="block text-[10px] text-white/30 mt-0.5">same creator ↓</span>
                   </li>
                 </Reveal>
               ))}

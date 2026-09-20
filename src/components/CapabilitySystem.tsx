@@ -21,7 +21,7 @@ export default function CapabilitySystem() {
       <div className="mx-auto max-w-7xl px-4 sm:px-6">
         <SectionHeading
           eyebrow="Capability system"
-          title={<>One builder. Five disciplines that combine.</>}
+          title={<>One creator. Five disciplines that combine.</>}
           sub="Select a discipline — the system reconfigures to show what gets built, and with what stack."
         />
         <Reveal delay={0.1} className="mt-10">
