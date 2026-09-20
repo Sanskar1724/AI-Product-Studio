@@ -17,7 +17,7 @@ export default function CapabilitySystem() {
   const cap = CAPABILITIES.find((c) => c.key === active)!;
 
   return (
-    <section className="relative py-24" id="capabilities">
+    <section className="relative py-14 sm:py-16" id="capabilities">
       <div className="mx-auto max-w-7xl px-4 sm:px-6">
         <SectionHeading
           eyebrow="Capability system"

@@ -7,33 +7,21 @@ export function prefersReduced() {
   return typeof window !== "undefined" && window.matchMedia?.("(prefers-reduced-motion: reduce)").matches;
 }
 
-/* ---------- custom cursor + spotlight wash ---------- */
+/* ---------- custom cursor dot + spotlight wash ---------- */
 export function Cursor() {
   const dot = useRef<HTMLDivElement>(null);
-  const ring = useRef<HTMLDivElement>(null);
   const wash = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     if (isCoarse() || prefersReduced()) return;
-    let x = -100, y = -100, rx = -100, ry = -100, raf = 0;
+    let x = -100, y = -100, raf = 0;
     const move = (e: globalThis.PointerEvent) => {
       x = e.clientX; y = e.clientY;
-      const t = e.target as HTMLElement;
-      ring.current?.classList.toggle("is-hover", !!t.closest("a,button,[role='tab'],[role='slider'],input,textarea"));
+      if (dot.current) dot.current.style.transform = `translate(${x - 3}px,${y - 3}px)`;
       wash.current?.style.setProperty("--cx", `${x}px`);
       wash.current?.style.setProperty("--cy", `${y}px`);
     };
-    const loop = () => {
-      rx += (x - rx) * 0.16; ry += (y - ry) * 0.16;
-      if (dot.current) dot.current.style.transform = `translate(${x - 3}px,${y - 3}px)`;
-      if (ring.current) {
-        const s = ring.current.classList.contains("is-hover") ? 28 : 17;
-        ring.current.style.transform = `translate(${rx - s}px,${ry - s}px)`;
-      }
-      raf = requestAnimationFrame(loop);
-    };
     window.addEventListener("pointermove", move, { passive: true });
-    raf = requestAnimationFrame(loop);
     return () => { window.removeEventListener("pointermove", move); cancelAnimationFrame(raf); };
   }, []);
 
@@ -41,7 +29,6 @@ export function Cursor() {
   return (
     <>
       <div ref={wash} className="cursor-wash" aria-hidden />
-      <div ref={ring} className="cursor-ring" aria-hidden />
       <div ref={dot} className="cursor-dot" aria-hidden />
     </>
   );

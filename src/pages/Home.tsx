@@ -12,10 +12,10 @@ export default function Home() {
       <Hero />
       <AudienceSelector />
       <CapabilitySystem />
-      <section className="py-16 sm:py-20 border-t border-white/5">
+      <section className="py-12 sm:py-14 border-t border-white/5">
         <div className="mx-auto max-w-7xl px-4 sm:px-6">
           <Reveal>
-            <div className="rounded-3xl g-border p-8 sm:p-12 flex flex-col lg:flex-row lg:items-center gap-6">
+            <div className="rounded-3xl g-border p-6 sm:p-8 flex flex-col lg:flex-row lg:items-center gap-5">
               <div className="flex-1">
                 <h2 className="font-display text-3xl sm:text-4xl font-bold tracking-tight">What should we build?</h2>
                 <p className="mt-2 text-[#9aa4b2]">Configure your blueprint, estimate scope, or just bring the idea as it is.</p>
@@ -28,23 +28,6 @@ export default function Home() {
                   Start a Project →
                 </Link>
               </div>
-            </div>
-          </Reveal>
-        </div>
-      </section>
-      {/* single doorway to the builder page — landing stays pure FORGE */}
-      <section className="pb-16 sm:pb-20">
-        <div className="mx-auto max-w-7xl px-4 sm:px-6">
-          <Reveal>
-            <div className="flex justify-center">
-              <Link
-                to="/creator"
-                className="group inline-flex items-center gap-3 rounded-full border border-white/12 px-6 py-3 text-sm text-[#9aa4b2] hover:text-white hover:border-[#c8ff3d]/50 transition-all"
-              >
-                <span className="w-1.5 h-1.5 rounded-full bg-[#c8ff3d]" />
-                FORGE is built by one engineer
-                <span className="font-semibold text-white group-hover:text-[#c8ff3d] transition-colors">Meet the builder →</span>
-              </Link>
             </div>
           </Reveal>
         </div>

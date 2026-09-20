@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { Pause, Play } from "lucide-react";
-import { Reveal, SectionHeading } from "./ui";
+import { Reveal } from "./ui";
 import { prefersReduced } from "../fx/fx";
 
 const BEFORE = ["Email threads", "Manual copy/paste", "Spreadsheet chaos", "Late reports", "Missed follow-ups"];
@@ -8,6 +8,7 @@ const AFTER = ["One customer view", "AI triage + drafts", "Live database", "Auto
 
 export default function BeforeAfter() {
   const [pos, setPos] = useState(50);
+  const [mode, setMode] = useState<"manual" | "before" | "after">("manual");
   const [tour, setTour] = useState(false);
   const posRef = useRef(50);
   posRef.current = pos;
@@ -27,30 +28,34 @@ export default function BeforeAfter() {
     return () => cancelAnimationFrame(raf);
   }, [tour]);
 
-  const go = (v: number) => { setTour(false); setPos(v); };
+  const go = (m: "manual" | "before" | "after", v: number) => { setTour(false); setMode(m); setPos(v); };
 
   return (
     <section className="py-20 sm:py-24 border-t border-white/5">
       <div className="mx-auto max-w-7xl px-4 sm:px-6">
-        <SectionHeading
-          eyebrow="Before / After"
-          title={<>Same week. <span className="text-[#c8ff3d]">Two realities.</span></>}
-          sub="Scrub the timeline, jump to either reality, or run the guided tour."
-        />
-        <Reveal delay={0.1} className="mt-8">
+        <Reveal>
+          <p className="font-mono2 text-[11px] tracking-[0.25em] text-[#9aa4b2]">{"//"} BEFORE / AFTER — SCRUB THE TRANSFORMATION</p>
+        </Reveal>
+        <Reveal delay={0.1} className="mt-6">
           {/* control deck */}
           <div className="flex flex-wrap items-center gap-3 rounded-2xl border border-white/10 bg-black/30 px-4 py-3">
             <div className="flex rounded-full border border-white/10 p-1 gap-1" role="group" aria-label="View mode">
-              {[["Manual", 50], ["Before", 4], ["After", 96]].map(([label, v]) => {
-                const on = !tour && Math.abs(pos - (v as number)) < 3 && (label === "Manual" ? pos > 10 && pos < 90 : true);
+              {(
+                [
+                  ["Manual", "manual", 50],
+                  ["Before", "before", 4],
+                  ["After", "after", 96],
+                ] as const
+              ).map(([label, m, v]) => {
+                const on = !tour && mode === m;
                 return (
                   <button
-                    key={label as string}
-                    onClick={() => go(v as number)}
+                    key={label}
+                    onClick={() => go(m, v)}
                     aria-pressed={on}
                     className={`rounded-full px-4 py-1.5 text-xs font-bold transition-all ${on ? "bg-[#c8ff3d] text-black" : "text-[#9aa4b2] hover:text-white"}`}
                   >
-                    {label as string}
+                    {label}
                   </button>
                 );
               })}
@@ -67,7 +72,7 @@ export default function BeforeAfter() {
               min={4}
               max={96}
               value={Math.round(pos)}
-              onChange={(e) => { setTour(false); setPos(Number(e.target.value)); }}
+              onChange={(e) => { setTour(false); setMode("manual"); setPos(Number(e.target.value)); }}
               aria-label="Scrub between manual and automated"
               className="flex-1 min-w-[140px] accent-[#c8ff3d] cursor-pointer"
             />

@@ -13,13 +13,6 @@ const WORDS: { t: string; accent?: boolean }[] = [
 
 const STATUS = ["SYSTEM ONLINE", "AI PIPELINE READY", "BUILD ENGINE READY", "AUTOMATION READY", "DEPLOY READY"];
 
-const TAGS: { label: string; sub: string; core: CoreKey }[] = [
-  { label: "Agents + RAG", sub: "ReAct, tools, memory", core: "agents" },
-  { label: "SaaS + APIs", sub: "React, FastAPI, DBs", core: "products" },
-  { label: "Automation", sub: "Triggers, decisions", core: "automation" },
-  { label: "Data", sub: "ETL, analytics, pipelines", core: "data" },
-];
-
 const PROOF = [
   { icon: Sparkles, label: "AI PRODUCTS" },
   { icon: Bot, label: "AGENTS" },
@@ -41,11 +34,11 @@ export default function Hero() {
   }, []);
 
   return (
-    <section id="top" className="relative overflow-hidden pt-28">
+    <section id="top" className="relative overflow-hidden pt-24">
       <div className="absolute inset-0 grid-bg" aria-hidden />
       <div className="absolute top-0 left-1/3 w-[600px] h-[380px] bg-[#c8ff3d]/[0.05] blur-[130px] rounded-full" aria-hidden />
 
-      <motion.div style={{ opacity: fade }} className="relative mx-auto max-w-7xl px-4 sm:px-6 grid lg:grid-cols-2 gap-10 items-center min-h-[82vh]">
+      <motion.div style={{ opacity: fade }} className="relative mx-auto max-w-7xl px-4 sm:px-6 grid lg:grid-cols-2 gap-10 items-center min-h-[70vh]">
         {/* left */}
         <div>
           <div className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-4 py-1.5 font-mono2 text-[11px] text-[#c6cdd8]">
@@ -132,31 +125,6 @@ export default function Hero() {
               />
             </div>
           </motion.div>
-
-          {/* capability tags */}
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 0.8, delay: 1.05 }}
-            className="mt-6 flex flex-wrap gap-x-7 gap-y-3 text-sm"
-          >
-            {TAGS.map((t) => (
-              <button
-                key={t.label}
-                onMouseEnter={() => setCore(t.core)}
-                onMouseLeave={() => setCore(null)}
-                onFocus={() => setCore(t.core)}
-                onBlur={() => setCore(null)}
-                onClick={() => setCore(t.core)}
-                className="group flex items-center gap-2 text-left"
-                data-tip="Hover to light up the core"
-              >
-                <span className={`font-semibold transition-colors ${core === t.core ? "text-[#c8ff3d]" : "text-white group-hover:text-[#c8ff3d]"}`}>{t.label}</span>
-                <span className="text-white/30">·</span>
-                <span className="text-[#9aa4b2]">{t.sub}</span>
-              </button>
-            ))}
-          </motion.div>
         </div>
 
         {/* right: AI core */}
@@ -171,7 +139,7 @@ export default function Hero() {
       </motion.div>
 
       {/* proof strip + tech marquee */}
-      <div id="next" className="relative mx-auto max-w-7xl px-4 sm:px-6 pb-16">
+      <div id="next" className="relative mx-auto max-w-7xl px-4 sm:px-6 pb-10">
         <motion.div
           initial={{ opacity: 0, y: 24 }}
           whileInView={{ opacity: 1, y: 0 }}

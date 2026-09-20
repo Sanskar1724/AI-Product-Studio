@@ -10,7 +10,7 @@ export default function AudienceSelector() {
   const a = AUDIENCES.find((x) => x.id === id)!;
 
   return (
-    <section className="relative py-20 sm:py-24 border-t border-white/5">
+    <section className="relative py-14 sm:py-16 border-t border-white/5">
       <div className="mx-auto max-w-7xl px-4 sm:px-6">
         <SectionHeading
           eyebrow="Start here"

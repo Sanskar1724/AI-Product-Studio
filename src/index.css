@@ -146,11 +146,9 @@ body {
 .tilt-inner { transform: translateZ(24px); }
 
 /* custom cursor */
-.cursor-dot, .cursor-ring { position: fixed; top: 0; left: 0; z-index: 100; pointer-events: none; border-radius: 9999px; }
-.cursor-dot { width: 6px; height: 6px; background: #c8ff3d; }
-.cursor-ring { width: 34px; height: 34px; border: 1px solid rgba(200,255,61,0.55); transition: width 0.25s, height 0.25s, border-color 0.25s, background 0.25s; }
-.cursor-ring.is-hover { width: 56px; height: 56px; background: rgba(200,255,61,0.08); border-color: rgba(200,255,61,0.9); }
-@media (hover: none), (pointer: coarse) { .cursor-dot, .cursor-ring { display: none; } }
+.cursor-dot { position: fixed; top: 0; left: 0; z-index: 100; pointer-events: none; border-radius: 9999px; }
+.cursor-dot { width: 6px; height: 6px; background: #c8ff3d; box-shadow: 0 0 10px rgba(200,255,61,0.8); }
+@media (hover: none), (pointer: coarse) { .cursor-dot { display: none; } }
 
 /* cursor spotlight wash */
 .cursor-wash {
