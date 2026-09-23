@@ -99,7 +99,7 @@ export default function BeforeAfter() {
             </div>
             <div
               className="absolute inset-0 bg-[#0a1210] p-6 sm:p-10 transition-[clip-path] duration-150"
-              style={{ clipPath: `inset(0 0 0 ${pos}%)` }}
+              style={{ clipPath: `inset(0 0 0 ${100 - pos}%)` }}
             >
               <p className="font-mono2 text-[11px] tracking-[0.25em] text-[#c8ff3d]">AFTER — AUTOMATED</p>
               <ul className="mt-5 space-y-3 max-w-md">
