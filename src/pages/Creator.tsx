@@ -316,7 +316,7 @@ export default function Creator() {
       {/* 6. signals */}
       <section className="py-16 sm:py-20 border-t border-white/5">
         <div className="mx-auto max-w-7xl px-4 sm:px-6">
-          <SectionHeading eyebrow="Proof" title={<>BUILDING IN <span className="text-[#c8ff3d]">PUBLIC</span></>} sub="Figures from my resume — clean technical metrics, not marketing." />
+          <SectionHeading eyebrow="Proof" title={<>BUILDING IN <span className="text-[#c8ff3d]">PUBLIC</span></>} sub="Live public GitHub counts, Sep 2026 — clean technical metrics, not marketing." />
           <div className="mt-10 grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-4">
             {SIGNALS.map((s, i) => (
               <Reveal key={s.label} delay={i * 0.06}>

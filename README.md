@@ -3,6 +3,8 @@
 Production-quality, fully responsive SaaS-style business site for an independent AI product studio.
 **Ideas in. Intelligent products out.**
 
+Live: https://forgeaistudio.vercel.app/
+
 ## Stack
 
 React + TypeScript + Vite + Tailwind CSS v4 · Framer Motion · GSAP-ready · Lenis smooth scroll · Lucide icons

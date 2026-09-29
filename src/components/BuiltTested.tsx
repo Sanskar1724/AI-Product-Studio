@@ -27,7 +27,7 @@ export default function BuiltTested({ bare = false }: { bare?: boolean }) {
             <div className="flex flex-wrap items-end gap-4">
               <p className="font-display text-xl font-bold">Open a case study — then read the code.</p>
               <p className="ml-auto font-mono2 text-xs text-[#9aa4b2]">
-                <CountUp to={8} /> builds · stars are live public GitHub counts (Sep 2026)
+                <CountUp to={12} /> builds · stars are live public GitHub counts (Sep 2026)
               </p>
             </div>
           </Reveal>

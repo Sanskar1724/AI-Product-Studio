@@ -88,8 +88,8 @@ export const STACK_GROUPS: StackGroup[] = [
 ];
 
 export const SIGNALS: { value: number; suffix: string; label: string }[] = [
-  { value: 25, suffix: "", label: "PUBLIC REPOSITORIES" },
-  { value: 35, suffix: "", label: "GITHUB STARS" },
+  { value: 28, suffix: "", label: "PUBLIC REPOSITORIES" },
+  { value: 95, suffix: "", label: "GITHUB STARS" },
   { value: 10, suffix: "+", label: "AI / SOFTWARE BUILDS" },
   { value: 300, suffix: "+", label: "DSA PROBLEMS" },
   { value: 10, suffix: "+", label: "CERTIFICATIONS" },

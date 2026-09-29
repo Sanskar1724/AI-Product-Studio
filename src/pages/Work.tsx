@@ -17,10 +17,10 @@ export default function WorkPage() {
           <Reveal>
             <dl className="grid grid-cols-2 sm:grid-cols-4 gap-4 font-mono2">
               {[
-                [<CountUp key="a" to={26} />, "public repos"],
-                [<CountUp key="b" to={8} />, "builds featured"],
-                [<CountUp key="c" to={6} />, "lab experiments"],
-                [<CountUp key="d" to={14} />, "core technologies"],
+                [<CountUp key="a" to={28} />, "public repos"],
+                [<CountUp key="b" to={12} />, "builds featured"],
+                [<CountUp key="c" to={8} />, "lab experiments"],
+                [<CountUp key="d" to={15} />, "core technologies"],
               ].map(([v, l], i) => (
                 <div key={i} className="rounded-2xl card-border px-5 py-4">
                   <dt className="order-2 mt-1 block text-[11px] tracking-widest text-[#9aa4b2] uppercase">{l}</dt>

@@ -64,7 +64,7 @@ export default function RouteSeo() {
     set('meta[property="og:description"]', "content", m.desc);
     set('meta[name="twitter:title"]', "content", m.title);
     set('meta[name="twitter:description"]', "content", m.desc);
-    set('link[rel="canonical"]', "href", `/${pathname === "/" ? "" : pathname.slice(1)}`);
+    set('link[rel="canonical"]', "href", `https://forgeaistudio.vercel.app/${pathname === "/" ? "" : pathname.slice(1)}`);
   }, [pathname]);
   return null;
 }
