@@ -99,9 +99,9 @@ export function Logo({ compact = false }: { compact?: boolean }) {
         <circle cx="32" cy="34" r="4.5" fill="#0e1422" stroke="#C8FF3D" strokeWidth="3" className="logo-core" />
         <path d="M26 44 H38" stroke="#fff" strokeWidth="3" strokeLinecap="round" opacity="0.9" />
       </svg>
-      <span className="font-display font-bold tracking-tight text-[17px]">
+      <span className="font-display font-bold tracking-tight text-[17px] whitespace-nowrap">
         FORGE<span className="text-[#c8ff3d]">//</span>
-        <span className="hidden sm:inline text-[#9aa4b2] font-medium text-[13px] ml-2">AI Product Studio</span>
+        {!compact && <span className="hidden sm:inline text-[#9aa4b2] font-medium text-[13px] ml-2">AI Product Studio</span>}
       </span>
     </Link>
   );

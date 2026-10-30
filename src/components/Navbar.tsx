@@ -3,15 +3,15 @@ import { Link, NavLink } from "react-router-dom";
 import { motion } from "framer-motion";
 import { Menu, X, ArrowUpRight } from "lucide-react";
 import { Logo } from "./ui";
-import { StatusDot } from "../fx/fx";
 import CommandPalette from "./CommandPalette";
 
 const LINKS = [
+  { label: "Work", href: "/work" },
   { label: "Services", href: "/services" },
   { label: "Builder", href: "/builder" },
   { label: "Automation", href: "/automation" },
   { label: "AI Lab", href: "/lab" },
-  { label: "Work", href: "/work" },
+  { label: "Creator", href: "/creator" },
 ];
 
 export default function Navbar() {
@@ -27,7 +27,7 @@ export default function Navbar() {
 
   return (
     <header className="fixed top-0 inset-x-0 z-50">
-      <div className={`mx-auto transition-all duration-500 ${scrolled ? "max-w-5xl px-3 pt-3" : "max-w-7xl px-4 sm:px-6 pt-4"}`}>
+      <div className={`mx-auto transition-all duration-500 ${scrolled ? "max-w-6xl px-3 pt-3" : "max-w-7xl px-4 sm:px-6 pt-4"}`}>
         <nav
           aria-label="Primary"
           className={`flex items-center justify-between gap-2 rounded-2xl border transition-all duration-500 ${
@@ -36,14 +36,14 @@ export default function Navbar() {
               : "border-transparent bg-transparent px-2 py-3"
           }`}
         >
-          <Link to="/" aria-label="Forge home"><Logo compact={scrolled} /></Link>
-          <div className="hidden lg:flex items-center gap-1 text-sm">
+          <Logo compact={scrolled} />
+          <div className="hidden lg:flex items-center gap-1 text-sm whitespace-nowrap">
             {LINKS.map((l) => (
               <NavLink
                 key={l.href}
                 to={l.href}
                 className={({ isActive }) =>
-                  `relative px-4 py-2 rounded-full transition-colors ${isActive ? "text-[#c8ff3d]" : "text-[#c6cdd8] hover:text-white hover:bg-white/5"}`
+                  `relative px-3 py-2 rounded-full transition-colors ${isActive ? "text-[#c8ff3d]" : "text-[#c6cdd8] hover:text-white hover:bg-white/5"}`
                 }
               >
                 {({ isActive }) => (
@@ -62,9 +62,6 @@ export default function Navbar() {
             ))}
           </div>
           <div className="hidden lg:flex items-center gap-3">
-            <span className="hidden xl:block" data-tip="Interface status — demos run locally">
-              <StatusDot label="AI Online" />
-            </span>
             <CommandPalette />
             <Link
               to="/start"
@@ -74,7 +71,7 @@ export default function Navbar() {
                 e.currentTarget.style.transform = `translate(${((e.clientX - r.left - r.width / 2) * 0.12).toFixed(1)}px, ${((e.clientY - r.top - r.height / 2) * 0.18).toFixed(1)}px)`;
               }}
               onPointerLeave={(e) => { e.currentTarget.style.transform = ""; }}
-              className="inline-flex items-center gap-1.5 rounded-full bg-[#c8ff3d] text-black text-sm font-semibold px-5 py-2.5 hover:shadow-[0_0_32px_-6px_rgba(200,255,61,0.7)] transition-shadow"
+              className="inline-flex items-center gap-1.5 whitespace-nowrap rounded-full bg-[#c8ff3d] text-black text-sm font-semibold px-5 py-2.5 hover:shadow-[0_0_32px_-6px_rgba(200,255,61,0.7)] transition-shadow"
             >
               Start a Project <ArrowUpRight size={16} />
             </Link>

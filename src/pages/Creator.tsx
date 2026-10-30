@@ -59,8 +59,8 @@ export default function Creator() {
     <PageShell tone="ai">
       <PageHeader
         eyebrow="Creator"
-        title={<>THE CREATOR <span className="text-[#c8ff3d]">BEHIND FORGE</span></>}
-        sub="Independent AI creator focused on turning ideas into intelligent products, systems, and experiments."
+        title={<>Sanskar <span className="text-[#c8ff3d]">Chandawar</span></>}
+        sub="I build AI agents, data systems and software products."
       />
 
       {/* 1. hero */}
@@ -68,8 +68,8 @@ export default function Creator() {
         <div className="mx-auto max-w-7xl px-4 sm:px-6 grid lg:grid-cols-2 gap-10 items-center">
           <div>
             <Reveal>
-              <h2 className="font-display text-3xl sm:text-4xl font-bold tracking-tight">Sanskar Chandawar</h2>
-              <p className="mt-3 font-mono2 text-xs tracking-[0.2em] text-[#c8ff3d]">INDEPENDENT AI CREATOR</p>
+              <h2 className="sr-only">About</h2>
+              <p className="font-mono2 text-xs tracking-[0.2em] text-[#c8ff3d]">INDEPENDENT AI CREATOR</p>
               <p className="mt-1 font-mono2 text-xs tracking-[0.2em] text-[#9aa4b2]">AI / LLMs / AGENTS / DATA / SOFTWARE</p>
               <p className="mt-5 text-[#9aa4b2] leading-relaxed max-w-xl">{CREATOR.intro}</p>
             </Reveal>

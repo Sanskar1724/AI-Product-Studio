@@ -70,9 +70,9 @@ export default function BuiltTested({ bare = false }: { bare?: boolean }) {
               <Tilt max={6} className="h-full">
                 <button
                   onClick={() => { setOpen(p.name); setShowArch(false); }}
-                  className="spot w-full text-left rounded-3xl card-border p-6 h-full hover:border-[#c8ff3d]/40 hover:-translate-y-1 transition-all duration-300 group"
+                  className="spot w-full flex flex-col items-start text-left rounded-3xl card-border p-6 h-full hover:border-[#c8ff3d]/40 hover:-translate-y-1 transition-all duration-300 group"
                 >
-                  <div className="flex items-center justify-between gap-2">
+                  <div className="w-full flex items-center justify-between gap-2">
                     <span className="inline-block rounded-full border border-white/12 px-3 py-1 text-[11px] font-mono2 text-[#c8ff3d]">{p.tag}</span>
                     {p.stars !== undefined && (
                       <span className="inline-flex items-center gap-1 text-[11px] font-mono2 text-[#9aa4b2]" data-tip={`Stars: ${github.label}`}>
@@ -82,7 +82,7 @@ export default function BuiltTested({ bare = false }: { bare?: boolean }) {
                   </div>
                   <h3 className="font-display text-lg font-bold mt-3 group-hover:text-[#c8ff3d] transition-colors">{p.name}</h3>
                   <p className="mt-2 text-sm text-[#9aa4b2] leading-relaxed line-clamp-3">{p.problem}</p>
-                  <span className="mt-4 inline-flex text-sm font-semibold text-white/80">Open case study →</span>
+                  <span className="mt-auto pt-4 inline-flex text-sm font-semibold text-white/80">Open case study →</span>
                 </button>
               </Tilt>
             </Reveal>
@@ -171,7 +171,7 @@ export default function BuiltTested({ bare = false }: { bare?: boolean }) {
                   </a>
                   {active.demo && (
                     <a href={active.demo} target="_blank" rel="noreferrer" className="inline-flex items-center gap-2 rounded-full border border-white/15 text-sm font-semibold px-6 py-3 hover:border-[#c8ff3d]/60 hover:text-[#c8ff3d]">
-                      <ExternalLink size={15} /> Live demo
+                      <ExternalLink size={15} /> {active.demoLabel ?? "Live demo"}
                     </a>
                   )}
                 </div>

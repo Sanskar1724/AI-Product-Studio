@@ -234,6 +234,9 @@ export interface Project {
   tag: string;
   stars?: number;
   arch: string[];
+  image?: string;
+  result?: string;
+  demoLabel?: string;
 }
 
 export const PROJECTS: Project[] = [
@@ -245,6 +248,8 @@ export const PROJECTS: Project[] = [
     repo: `${GITHUB_URL}/FinSight_AI`,
     tag: "AI Product · Fintech",
     stars: 1,
+    image: "/projects/finsight.png",
+    result: "Every AI answer shows its evidence",
     arch: ["Ledger", "Deterministic engine", "Grounded assistant", "Evidence + sources"],
   },
   {
@@ -256,6 +261,8 @@ export const PROJECTS: Project[] = [
     demo: "https://campus-ops-chi.vercel.app",
     tag: "AI Agent · SaaS",
     stars: 5,
+    image: "/projects/campusops.png",
+    result: "Live demo you can try now",
     arch: ["App UI", "Agent runtime", "Tools + memory", "Database"],
   },
   {
@@ -337,8 +344,11 @@ export const PROJECTS: Project[] = [
     tech: ["Python", "LightGBM", "PuLP / HiGHS", "FastAPI", "Gradio"],
     repo: `${GITHUB_URL}/MarginGraph`,
     demo: "https://huggingface.co/spaces/EquilStable/MarginGraph",
+    demoLabel: "Try on Hugging Face",
     tag: "Applied ML · Recommender",
     stars: 1,
+    image: "/projects/margingraph.png",
+    result: "38.1% Hit@10, +14% simulated profit",
     arch: ["Cart + history", "Candidate retrieval", "LightGBM reranker", "MILP optimizer"],
   },
   {

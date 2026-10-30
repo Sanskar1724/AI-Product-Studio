@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 import { ArrowRight } from "lucide-react";
 import Hero from "../components/Hero";
+import FeaturedWork from "../components/FeaturedWork";
 import AudienceSelector from "../components/AudienceSelector";
 import CapabilitySystem from "../components/CapabilitySystem";
 import { Reveal } from "../components/ui";
@@ -10,6 +11,7 @@ export default function Home() {
   return (
     <PageShell tone="ai">
       <Hero />
+      <FeaturedWork />
       <AudienceSelector />
       <CapabilitySystem />
       <section className="py-12 sm:py-14 border-t border-white/5">
