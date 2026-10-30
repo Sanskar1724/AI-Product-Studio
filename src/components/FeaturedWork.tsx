@@ -19,8 +19,13 @@ export default function FeaturedWork() {
           {FEATURED.map((p, i) => (
             <Reveal key={p.name} delay={i * 0.08}>
               <article className="rounded-3xl card-border overflow-hidden h-full flex flex-col hover:border-[#c8ff3d]/40 transition-colors">
-                <a href={p.demo ?? p.repo} target="_blank" rel="noreferrer" aria-label={`Open ${p.name}`}>
+                <a href={p.demo ?? p.repo} target="_blank" rel="noreferrer" aria-label={`Open ${p.name}`} className="relative block">
                   <img src={p.image} alt={`${p.name} screenshot`} loading="lazy" className="w-full aspect-[16/10] object-cover object-top border-b border-white/8 bg-white" />
+                  {p.demoLabel && (
+                    <span className="absolute top-3 right-3 inline-flex items-center gap-1.5 rounded-full bg-[#c8ff3d] text-black text-xs font-bold px-3 py-1.5">
+                      Open Hugging Face Space <ArrowUpRight size={13} />
+                    </span>
+                  )}
                 </a>
                 <div className="p-6 flex flex-col flex-1">
                   <span className="font-mono2 text-[11px] text-[#c8ff3d]">{p.tag}</span>
