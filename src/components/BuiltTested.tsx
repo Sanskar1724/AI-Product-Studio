@@ -1,15 +1,35 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { ExternalLink, X, Star, Network } from "lucide-react";
-import { PROJECTS } from "../data/studio";
+import { PROJECTS, type Project } from "../data/studio";
+import { useGithubStats } from "../data/github";
 import { Reveal, SectionHeading } from "./ui";
 import { AmbientParticles, CountUp, Tilt } from "../fx/fx";
 import { GithubIcon } from "./ui";
 
+const FILTERS: { label: string; match: (p: Project) => boolean }[] = [
+  { label: "All", match: () => true },
+  { label: "Agents", match: (p) => p.tag.includes("Agent") },
+  { label: "Products", match: (p) => /Product|SaaS|Assistant/.test(p.tag) },
+  { label: "Applied ML", match: (p) => /Applied ML|Fine-tuning/.test(p.tag) },
+  { label: "Data", match: (p) => p.tag.includes("Data") },
+  { label: "Live demo", match: (p) => Boolean(p.demo) },
+];
+
 export default function BuiltTested({ bare = false }: { bare?: boolean }) {
   const [open, setOpen] = useState<string | null>(null);
   const [showArch, setShowArch] = useState(false);
+  const [filter, setFilter] = useState(FILTERS[0]);
+  const github = useGithubStats();
   const active = PROJECTS.find((p) => p.name === open);
+  const visible = PROJECTS.filter(filter.match);
+
+  useEffect(() => {
+    if (!open) return;
+    const onKey = (e: KeyboardEvent) => { if (e.key === "Escape") setOpen(null); };
+    window.addEventListener("keydown", onKey);
+    return () => window.removeEventListener("keydown", onKey);
+  }, [open]);
 
   return (
     <section id="work" className="relative py-20 sm:py-24 border-t border-white/5 overflow-hidden">
@@ -27,13 +47,25 @@ export default function BuiltTested({ bare = false }: { bare?: boolean }) {
             <div className="flex flex-wrap items-end gap-4">
               <p className="font-display text-xl font-bold">Open a case study — then read the code.</p>
               <p className="ml-auto font-mono2 text-xs text-[#9aa4b2]">
-                <CountUp to={12} /> builds · stars are live public GitHub counts (Sep 2026)
+                <CountUp to={PROJECTS.length} /> builds · stars: {github.label}
               </p>
+            </div>
+            <div className="mt-5 flex flex-wrap gap-2" role="group" aria-label="Filter builds">
+              {FILTERS.map((f) => (
+                <button
+                  key={f.label}
+                  onClick={() => setFilter(f)}
+                  aria-pressed={filter === f}
+                  className={`rounded-full border px-4 py-2 text-sm font-semibold transition-all ${filter === f ? "bg-[#c8ff3d] text-black border-[#c8ff3d]" : "border-white/12 text-[#c6cdd8] hover:border-white/35"}`}
+                >
+                  {f.label}
+                </button>
+              ))}
             </div>
           </Reveal>
         )}
         <div className="mt-8 grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
-          {PROJECTS.map((p, i) => (
+          {visible.map((p, i) => (
             <Reveal key={p.name} delay={(i % 4) * 0.06}>
               <Tilt max={6} className="h-full">
                 <button
@@ -43,8 +75,8 @@ export default function BuiltTested({ bare = false }: { bare?: boolean }) {
                   <div className="flex items-center justify-between gap-2">
                     <span className="inline-block rounded-full border border-white/12 px-3 py-1 text-[11px] font-mono2 text-[#c8ff3d]">{p.tag}</span>
                     {p.stars !== undefined && (
-                      <span className="inline-flex items-center gap-1 text-[11px] font-mono2 text-[#9aa4b2]" data-tip="Public GitHub stars, Sep 2026">
-                        <Star size={12} className="text-[#c8ff3d]" /> {p.stars}
+                      <span className="inline-flex items-center gap-1 text-[11px] font-mono2 text-[#9aa4b2]" data-tip={`Stars: ${github.label}`}>
+                        <Star size={12} className="text-[#c8ff3d]" /> {github.starsFor(p.repo, p.stars)}
                       </span>
                     )}
                   </div>
@@ -83,7 +115,7 @@ export default function BuiltTested({ bare = false }: { bare?: boolean }) {
                       <span className="rounded-full bg-[#c8ff3d]/10 border border-[#c8ff3d]/30 px-3 py-1 text-[11px] font-mono2 text-[#c8ff3d]">{active.tag}</span>
                       {active.stars !== undefined && (
                         <span className="inline-flex items-center gap-1 text-[11px] font-mono2 text-[#9aa4b2]">
-                          <Star size={12} className="text-[#c8ff3d]" /> {active.stars} · public
+                          <Star size={12} className="text-[#c8ff3d]" /> {github.starsFor(active.repo, active.stars)} · public
                         </span>
                       )}
                     </div>

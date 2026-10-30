@@ -1,7 +1,8 @@
 import { useEffect, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { useNavigate } from "react-router-dom";
-import { Compass, FlaskConical, Hammer, Workflow, Wrench, Rocket, Home, User } from "lucide-react";
+import { Compass, FlaskConical, FolderGit2, Hammer, Workflow, Wrench, Rocket, Home, User } from "lucide-react";
+import { PROJECTS } from "../data/studio";
 
 const ITEMS = [
   { label: "Home", hint: "Living hero + audience", href: "/", icon: Home },
@@ -14,9 +15,12 @@ const ITEMS = [
   { label: "Start a Project", hint: "Intake + contact", href: "/start", icon: Rocket },
 ];
 
+const PROJECT_ITEMS = PROJECTS.map((p) => ({ label: p.name, hint: `${p.tag} · open on GitHub`, href: p.repo, icon: FolderGit2 }));
+
 export default function CommandPalette() {
   const [open, setOpen] = useState(false);
   const [query, setQuery] = useState("");
+  const [active, setActive] = useState(0);
   const nav = useNavigate();
 
   useEffect(() => {
@@ -31,14 +35,16 @@ export default function CommandPalette() {
     return () => window.removeEventListener("keydown", onKey);
   }, []);
 
-  const results = ITEMS.filter(
+  const results = (query ? [...ITEMS, ...PROJECT_ITEMS] : ITEMS).filter(
     (i) => i.label.toLowerCase().includes(query.toLowerCase()) || i.hint.toLowerCase().includes(query.toLowerCase())
   );
 
   const go = (href: string) => {
     setOpen(false);
     setQuery("");
-    nav(href);
+    setActive(0);
+    if (href.startsWith("http")) window.open(href, "_blank", "noreferrer");
+    else nav(href);
   };
 
   return (
@@ -73,20 +79,26 @@ export default function CommandPalette() {
               <input
                 autoFocus
                 value={query}
-                onChange={(e) => setQuery(e.target.value)}
+                onChange={(e) => { setQuery(e.target.value); setActive(0); }}
                 onKeyDown={(e) => {
-                  if (e.key === "Enter" && results[0]) go(results[0].href);
+                  if (e.key === "Enter" && results[active]) go(results[active].href);
+                  if (results.length && (e.key === "ArrowDown" || e.key === "ArrowUp")) {
+                    e.preventDefault();
+                    const step = e.key === "ArrowDown" ? 1 : -1;
+                    setActive((i) => (i + step + results.length) % results.length);
+                  }
                 }}
-                placeholder="Type a command — services, lab, builder…"
+                placeholder="Search pages and projects…"
                 className="w-full bg-transparent px-5 py-4 text-[15px] outline-none placeholder:text-white/25 border-b border-white/8"
                 aria-label="Search pages"
               />
               <ul className="max-h-[320px] overflow-y-auto p-2">
-                {results.map((r) => (
-                  <li key={r.href}>
+                {results.map((r, i) => (
+                  <li key={r.href} ref={i === active ? (el) => el?.scrollIntoView({ block: "nearest" }) : undefined}>
                     <button
                       onClick={() => go(r.href)}
-                      className="w-full flex items-center gap-3 rounded-xl px-3.5 py-3 text-left hover:bg-[#c8ff3d]/10 group"
+                      onMouseEnter={() => setActive(i)}
+                      className={`w-full flex items-center gap-3 rounded-xl px-3.5 py-3 text-left group ${i === active ? "bg-[#c8ff3d]/10" : ""}`}
                     >
                       <span className="text-[#c8ff3d]"><r.icon size={17} /></span>
                       <span>
@@ -98,10 +110,10 @@ export default function CommandPalette() {
                   </li>
                 ))}
                 {results.length === 0 && (
-                  <li className="px-4 py-6 text-sm text-[#9aa4b2] text-center">No match — try “lab”, “builder”, “work”…</li>
+                  <li className="px-4 py-6 text-sm text-[#9aa4b2] text-center">No match — try “lab”, “agent”, “finance”…</li>
                 )}
               </ul>
-              <p className="px-5 py-2.5 border-t border-white/8 font-mono2 text-[11px] text-white/30">ctrl/⌘ K to toggle · esc to close</p>
+              <p className="px-5 py-2.5 border-t border-white/8 font-mono2 text-[11px] text-white/30">↑↓ to move · ↵ to open · esc to close</p>
             </motion.div>
           </motion.div>
         )}

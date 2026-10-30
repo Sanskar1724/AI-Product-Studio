@@ -15,6 +15,7 @@ const LabPage = lazy(() => import("./pages/Lab"));
 const WorkPage = lazy(() => import("./pages/Work"));
 const StartPage = lazy(() => import("./pages/Start"));
 const Creator = lazy(() => import("./pages/Creator"));
+const NotFound = lazy(() => import("./pages/NotFound"));
 
 function Fallback() {
   return (
@@ -58,8 +59,8 @@ function Shell() {
               <Route path="/lab" element={<LabPage />} />
               <Route path="/work" element={<WorkPage />} />
               <Route path="/start" element={<StartPage />} />
-            <Route path="/creator" element={<Creator />} />
-              <Route path="*" element={<Home />} />
+              <Route path="/creator" element={<Creator />} />
+              <Route path="*" element={<NotFound />} />
             </Routes>
           </div>
         </Suspense>

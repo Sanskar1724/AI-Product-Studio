@@ -27,8 +27,11 @@ Standard Vite static output in `dist/`. Deploy by connecting the repo to Vercel 
 ## Structure
 
 - `src/data/studio.ts` — all content: capabilities, services, experiments, projects, tech, process (edit copy here)
+- `src/data/creator.ts` — creator profile: builds, stack, certifications, coding profiles, socials
+- `src/data/github.ts` — live repo and star counts from the public GitHub API, with a dated snapshot as fallback
 - `src/components/` — Navbar, Hero, CapabilitySystem, Services, ProductBuilder, Solutions, AILab, LiveDemo, Process, BuiltTested, TechEcosystem, Independent, Estimator, Closing
 - `public/` — favicon, OG image, robots.txt, sitemap.xml
+- `.github/workflows/ci.yml` — lint and build on every push and pull request
 
 ## Notes
 

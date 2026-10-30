@@ -1,10 +1,13 @@
 import BuiltTested from "../components/BuiltTested";
 import TechEcosystem from "../components/TechEcosystem";
 import { CountUp, PageShell } from "../fx/fx";
+import { EXPERIMENTS, PROJECTS, TECHS } from "../data/studio";
+import { useGithubStats } from "../data/github";
 import { PageHeader } from "./shared";
 import { Reveal } from "../components/ui";
 
 export default function WorkPage() {
+  const github = useGithubStats();
   return (
     <PageShell tone="data">
       <PageHeader
@@ -17,10 +20,10 @@ export default function WorkPage() {
           <Reveal>
             <dl className="grid grid-cols-2 sm:grid-cols-4 gap-4 font-mono2">
               {[
-                [<CountUp key="a" to={28} />, "public repos"],
-                [<CountUp key="b" to={12} />, "builds featured"],
-                [<CountUp key="c" to={8} />, "lab experiments"],
-                [<CountUp key="d" to={15} />, "core technologies"],
+                [<CountUp key="a" to={github.repos} />, "public repos"],
+                [<CountUp key="b" to={PROJECTS.length} />, "builds featured"],
+                [<CountUp key="c" to={EXPERIMENTS.length} />, "lab experiments"],
+                [<CountUp key="d" to={TECHS.length} />, "core technologies"],
               ].map(([v, l], i) => (
                 <div key={i} className="rounded-2xl card-border px-5 py-4">
                   <dt className="order-2 mt-1 block text-[11px] tracking-widest text-[#9aa4b2] uppercase">{l}</dt>
@@ -29,7 +32,7 @@ export default function WorkPage() {
               ))}
             </dl>
           </Reveal>
-          <p className="mt-3 font-mono2 text-[11px] text-white/35">Counts from the public GitHub profile, Sep 2026. Stars on cards are live per-repo counts.</p>
+          <p className="mt-3 font-mono2 text-[11px] text-white/35">Repository and star counts: {github.label}.</p>
         </div>
       </section>
       <BuiltTested bare />

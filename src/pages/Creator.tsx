@@ -7,6 +7,7 @@ import {
 } from "lucide-react";
 import { CODE_PROFILES, CREATOR, CREATOR_BUILDS, CREATOR_CAPS, CERTS, CERTS_FOLDER, EDUCATION_JOURNEY, HF_MODEL, HF_PROFILE, HF_SPACES, PHILOSOPHY, SIGNALS, SOCIALS, STACK_GROUPS } from "../data/creator";
 import { LINKEDIN_URL } from "../data/studio";
+import { useGithubStats } from "../data/github";
 import { Reveal, SectionHeading } from "../components/ui";
 import { AmbientParticles, Aurora, CountUp, PageShell, StatusDot, Tilt } from "../fx/fx";
 import { PageHeader } from "./shared";
@@ -52,6 +53,7 @@ function IdentityCard() {
 
 export default function Creator() {
   const [openBuild, setOpenBuild] = useState<string | null>(null);
+  const github = useGithubStats();
 
   return (
     <PageShell tone="ai">
@@ -316,12 +318,12 @@ export default function Creator() {
       {/* 6. signals */}
       <section className="py-16 sm:py-20 border-t border-white/5">
         <div className="mx-auto max-w-7xl px-4 sm:px-6">
-          <SectionHeading eyebrow="Proof" title={<>BUILDING IN <span className="text-[#c8ff3d]">PUBLIC</span></>} sub="Live public GitHub counts, Sep 2026 — clean technical metrics, not marketing." />
+          <SectionHeading eyebrow="Proof" title={<>BUILDING IN <span className="text-[#c8ff3d]">PUBLIC</span></>} sub={`Repository and star counts: ${github.label}. Clean technical metrics, not marketing.`} />
           <div className="mt-10 grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-4">
             {SIGNALS.map((s, i) => (
               <Reveal key={s.label} delay={i * 0.06}>
                 <div className="rounded-2xl card-border px-5 py-6 text-center hover:border-[#c8ff3d]/30 transition-colors">
-                  <p className="font-display text-4xl font-bold"><CountUp to={s.value} suffix={s.suffix} /></p>
+                  <p className="font-display text-4xl font-bold"><CountUp to={s.live ? github[s.live] : s.value} suffix={s.suffix} /></p>
                   <p className="mt-2 font-mono2 text-[10px] tracking-[0.18em] text-[#9aa4b2]">{s.label}</p>
                 </div>
               </Reveal>

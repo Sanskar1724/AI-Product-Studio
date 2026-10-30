@@ -87,9 +87,9 @@ export const STACK_GROUPS: StackGroup[] = [
   { name: "Infra / Tools", purpose: "Build, run and experiment", items: ["Git", "GitHub", "Linux", "Docker", "Google Colab", "Kaggle", "NVIDIA APIs"] },
 ];
 
-export const SIGNALS: { value: number; suffix: string; label: string }[] = [
-  { value: 28, suffix: "", label: "PUBLIC REPOSITORIES" },
-  { value: 95, suffix: "", label: "GITHUB STARS" },
+export const SIGNALS: { value: number; suffix: string; label: string; live?: "repos" | "stars" }[] = [
+  { value: 31, suffix: "", label: "PUBLIC REPOSITORIES", live: "repos" },
+  { value: 103, suffix: "", label: "GITHUB STARS", live: "stars" },
   { value: 10, suffix: "+", label: "AI / SOFTWARE BUILDS" },
   { value: 300, suffix: "+", label: "DSA PROBLEMS" },
   { value: 10, suffix: "+", label: "CERTIFICATIONS" },

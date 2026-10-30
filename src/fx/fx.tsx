@@ -66,11 +66,11 @@ export function CountUp({ to, suffix = "", duration = 1400 }: { to: number; suff
   const ref = useRef<HTMLSpanElement>(null);
   useEffect(() => {
     if (prefersReduced()) { setN(to); return; }
-    let raf = 0; const t0 = performance.now();
+    let raf = 0;
     const el = ref.current;
     let started = false;
     const obs = new IntersectionObserver(
-      (es) => es.forEach((e) => { if (e.isIntersecting && !started) { started = true; tick(t0); } }),
+      (es) => es.forEach((e) => { if (e.isIntersecting && !started) { started = true; tick(performance.now()); } }),
       { threshold: 0.4 }
     );
     if (el) obs.observe(el);

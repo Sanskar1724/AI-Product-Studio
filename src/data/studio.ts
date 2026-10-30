@@ -206,10 +206,10 @@ export const EXPERIMENTS: Experiment[] = [
   },
   {
     no: "EXP-07",
-    title: "Personalized Recommendations",
+    title: "Margin-Aware Recommendations",
     area: "Recommenders",
-    model: "LLMs + ranking",
-    objective: "Combine LLM personalization with mathematical ranking for e-commerce recommendations.",
+    model: "LightGBM · MILP · LLM ablation",
+    objective: "Rank add-ons for relevance, then optimize for profit under hard margin rules. The LLM ranker was tested and rejected as NO-GO.",
     status: "active",
     link: `${GITHUB_URL}/MarginGraph`,
   },
@@ -238,6 +238,16 @@ export interface Project {
 
 export const PROJECTS: Project[] = [
   {
+    name: "FinSight AI",
+    problem: "Budgeting apps either show raw numbers or give AI advice you can't check.",
+    solution: "Personal finance workspace for India: one ledger, a deterministic engine for every total, and an assistant that calculates first and shows its evidence. A demonstration product on fictional data, with no bank connection.",
+    tech: ["React", "TypeScript", "FastAPI", "Python", "PWA"],
+    repo: `${GITHUB_URL}/FinSight_AI`,
+    tag: "AI Product · Fintech",
+    stars: 1,
+    arch: ["Ledger", "Deterministic engine", "Grounded assistant", "Evidence + sources"],
+  },
+  {
     name: "CampusOps",
     problem: "College communities run on scattered chats — notices get lost, events lack owners, questions repeat.",
     solution: "An AI agent that acts as the community OS: structured notices, event flows and grounded Q&A.",
@@ -245,7 +255,7 @@ export const PROJECTS: Project[] = [
     repo: `${GITHUB_URL}/CampusOps`,
     demo: "https://campus-ops-chi.vercel.app",
     tag: "AI Agent · SaaS",
-    stars: 4,
+    stars: 5,
     arch: ["App UI", "Agent runtime", "Tools + memory", "Database"],
   },
   {
@@ -322,13 +332,14 @@ export const PROJECTS: Project[] = [
   },
   {
     name: "MarginGraph",
-    problem: "Shoppers drown in options while generic recommendations ignore personal context.",
-    solution: "E-commerce recommendation system combining LLM personalization with mathematical ranking.",
-    tech: ["Python", "LLMs", "Recommenders"],
+    problem: "A relevant recommendation can still lose money if its margin is thin or it needs a deep discount.",
+    solution: "A LightGBM ranker finds relevant add-ons, then a MILP optimizer picks what to show under a 15% margin floor. Tested offline on real baskets: Hit@10 of 38.1% and +14% simulated profit per basket. LLM rankers were tested and rejected.",
+    tech: ["Python", "LightGBM", "PuLP / HiGHS", "FastAPI", "Gradio"],
     repo: `${GITHUB_URL}/MarginGraph`,
-    tag: "AI Product",
+    demo: "https://huggingface.co/spaces/EquilStable/MarginGraph",
+    tag: "Applied ML · Recommender",
     stars: 1,
-    arch: ["User signals", "LLM personalizer", "Ranker", "Recommendations"],
+    arch: ["Cart + history", "Candidate retrieval", "LightGBM reranker", "MILP optimizer"],
   },
   {
     name: "DataPilot",
@@ -359,6 +370,16 @@ export const PROJECTS: Project[] = [
     tag: "Data",
     stars: 1,
     arch: ["EDA", "Feature checks", "Regression", "Diagnostics"],
+  },
+  {
+    name: "Landslide Early Warning",
+    problem: "Landslide risk across North East India is spread across weather, terrain and field reports that nobody sees in one place.",
+    solution: "SIH 2026 prototype combining ML risk prediction, GIS mapping, citizen reports and emergency prioritization. Negative training samples are synthetic, so it ships with a visible demo banner.",
+    tech: ["Python", "FastAPI", "scikit-learn", "Streamlit", "Folium"],
+    repo: `${GITHUB_URL}/Deepseek-harness_Project`,
+    tag: "Applied ML · Geo",
+    stars: 3,
+    arch: ["Environmental data", "Risk model", "GIS map", "Emergency priorities"],
   },
 ];
 

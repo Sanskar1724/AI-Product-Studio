@@ -36,10 +36,17 @@ const META: Record<string, { title: string; desc: string }> = {
   },
 };
 
+const NOT_FOUND = {
+  title: "Page not found | FORGE//",
+  desc: "This page doesn't exist. Head back to the studio to explore services, experiments and public builds.",
+};
+
 export default function RouteSeo() {
   const { pathname } = useLocation();
   useEffect(() => {
-    const m = META[pathname] ?? META["/"];
+    const path = pathname.replace(/\/+$/, "") || "/";
+    const known = path in META;
+    const m = META[path] ?? NOT_FOUND;
     document.title = m.title;
     const set = (sel: string, attr: string, val: string) => {
       let el = document.head.querySelector(sel) as HTMLMetaElement | HTMLLinkElement | null;
@@ -59,12 +66,13 @@ export default function RouteSeo() {
       }
       el.setAttribute(attr, val);
     };
+    set('meta[name="robots"]', "content", known ? "index, follow" : "noindex");
     set('meta[name="description"]', "content", m.desc);
     set('meta[property="og:title"]', "content", m.title);
     set('meta[property="og:description"]', "content", m.desc);
     set('meta[name="twitter:title"]', "content", m.title);
     set('meta[name="twitter:description"]', "content", m.desc);
-    set('link[rel="canonical"]', "href", `https://forgeaistudio.vercel.app/${pathname === "/" ? "" : pathname.slice(1)}`);
+    set('link[rel="canonical"]', "href", `https://forgeaistudio.vercel.app${path}`);
   }, [pathname]);
   return null;
 }
