@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { ArrowUpRight, Copy } from "lucide-react";
 import { Logo, Reveal } from "./ui";
 import { EMAIL } from "../data/studio";
-import { Aurora, StatusDot, useToast } from "../fx/fx";
+import { Aurora, useToast } from "../fx/fx";
 
 const NEEDS = ["I have an idea", "I have a business problem", "I need automation", "I want to add AI", "I'm exploring an idea"];
 
@@ -78,8 +78,6 @@ export function Footer() {
       {/* status strip */}
       <div className="relative mx-auto max-w-7xl px-4 sm:px-6">
         <div className="flex flex-wrap items-center gap-x-6 gap-y-2 rounded-2xl border border-white/8 bg-black/30 px-5 py-3">
-          <StatusDot label="AI online" />
-          <StatusDot color="#5eead4" label="build ready" pulse={false} />
           <span className="font-mono2 text-[11px] tracking-widest text-[#9aa4b2] uppercase">Pune · {time || "--:--:--"}</span>
           <button onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })} data-tip="Back to top" className="ml-auto font-mono2 text-[11px] tracking-widest text-white/50 hover:text-[#c8ff3d] transition-colors uppercase">
             ↑ top
@@ -118,7 +116,7 @@ export function Footer() {
           </div>
         </div>
         <div className="mt-10 pt-6 border-t border-white/8 flex flex-col sm:flex-row gap-2 justify-between text-xs text-white/35 font-mono2">
-          <span>© 2026 Forge // AI Product Studio. All systems operational.</span>
+          <span>© 2026 Forge // AI Product Studio.</span>
           <span className="flex flex-wrap gap-x-4 gap-y-1">
             <span>⌘K / Ctrl+K to explore</span>
             <span>No clients invented · No metrics fabricated · Code is the proof.</span>

@@ -9,7 +9,7 @@ import { CODE_PROFILES, CREATOR, CREATOR_BUILDS, CREATOR_CAPS, CERTS, CERTS_FOLD
 import { LINKEDIN_URL } from "../data/studio";
 import { useGithubStats } from "../data/github";
 import { Reveal, SectionHeading } from "../components/ui";
-import { AmbientParticles, Aurora, CountUp, PageShell, StatusDot, Tilt } from "../fx/fx";
+import { AmbientParticles, Aurora, CountUp, PageShell, Tilt } from "../fx/fx";
 import { PageHeader } from "./shared";
 
 const CAP_ICONS: Record<string, typeof Brain> = {
@@ -22,12 +22,7 @@ function IdentityCard() {
       <div className="relative rounded-3xl g-border p-7 sm:p-8 overflow-hidden bg-[#0a0e17]/90">
         <AmbientParticles density={22} color="200,255,61" />
         <div className="relative">
-          <div className="flex items-center justify-between">
-            <p className="font-display font-bold text-lg">FORGE<span className="text-[#c8ff3d]">//</span></p>
-            <StatusDot label="creator active" />
-          </div>
-          <p className="mt-6 font-mono2 text-[11px] tracking-[0.3em] text-[#9aa4b2]">BUILT BY</p>
-          <p className="font-display text-3xl sm:text-4xl font-bold tracking-tight mt-1">SANSKAR</p>
+          <p className="font-display font-bold text-lg">FORGE<span className="text-[#c8ff3d]">//</span></p>
           <div className="mt-6 grid grid-cols-2 gap-2">
             {["AI", "AGENTS", "DATA", "SOFTWARE"].map((t, i) => (
               <motion.div
@@ -365,7 +360,7 @@ export default function Creator() {
       <section className="py-16 sm:py-20 border-t border-white/5">
         <div className="mx-auto max-w-7xl px-4 sm:px-6">
           <SectionHeading eyebrow="Elsewhere" title={<>FIND ME AROUND <span className="text-[#c8ff3d]">THE WEB</span></>} />
-          <div className="mt-10 grid grid-cols-2 lg:grid-cols-3 gap-4">
+          <div className="mt-10 grid sm:grid-cols-3 gap-4">
             {SOCIALS.map((s, i) => (
               <Reveal key={s.name} delay={(i % 3) * 0.06}>
                 <a
@@ -386,32 +381,7 @@ export default function Creator() {
         </div>
       </section>
 
-      {/* 9. resume */}
-      <section className="py-16 sm:py-20 border-t border-white/5">
-        <div className="mx-auto max-w-7xl px-4 sm:px-6">
-          <Reveal>
-            <div className="rounded-3xl g-border p-8 sm:p-10 flex flex-col sm:flex-row sm:items-center gap-6">
-              <div className="w-14 h-14 rounded-2xl bg-[#c8ff3d]/10 border border-[#c8ff3d]/25 flex items-center justify-center text-[#c8ff3d] shrink-0">
-                <FileText size={24} />
-              </div>
-              <div className="flex-1">
-                <h2 className="font-display text-2xl sm:text-3xl font-bold">RESUME</h2>
-                <p className="mt-1 text-[#9aa4b2]">Education, technical skills, projects and experience.</p>
-              </div>
-              <div className="flex flex-wrap gap-3">
-                <a href={CREATOR.resumeUrl} target="_blank" rel="noreferrer" className="inline-flex items-center gap-2 rounded-full bg-[#c8ff3d] text-black text-sm font-bold px-6 py-3 active:scale-95 transition-transform">
-                  VIEW RESUME <ArrowUpRight size={15} />
-                </a>
-                <a href={CREATOR.resumeUrl} target="_blank" rel="noreferrer" className="inline-flex items-center gap-2 rounded-full border border-white/15 text-sm font-semibold px-6 py-3 hover:border-[#c8ff3d]/60 hover:text-[#c8ff3d] transition-colors">
-                  OPEN IN NEW TAB <ExternalLink size={14} />
-                </a>
-              </div>
-            </div>
-          </Reveal>
-        </div>
-      </section>
-
-      {/* 10. connect */}
+      {/* 9. connect */}
       <section className="relative py-20 sm:py-24 border-t border-white/5 overflow-hidden">
         <div className="absolute inset-0 grid-bg" aria-hidden />
         <AmbientParticles density={30} color="200,255,61" />
@@ -428,9 +398,6 @@ export default function Creator() {
               <Link to="/start" className="inline-flex items-center gap-2 rounded-full bg-[#c8ff3d] text-black text-sm font-bold px-7 py-3.5 hover:shadow-[0_0_40px_-6px_rgba(200,255,61,0.7)] transition-all active:scale-95">
                 START A PROJECT <ArrowUpRight size={16} />
               </Link>
-              <a href={LINKEDIN_URL} target="_blank" rel="noreferrer" className="inline-flex items-center gap-2 rounded-full border border-white/15 text-sm font-semibold px-7 py-3.5 hover:border-[#c8ff3d]/60 hover:text-[#c8ff3d] transition-colors">
-                CONNECT WITH ME <ArrowUpRight size={16} />
-              </a>
               <Link to="/work" className="inline-flex items-center gap-2 rounded-full border border-white/15 text-sm font-semibold px-7 py-3.5 hover:border-white/40 transition-colors">
                 VIEW MY WORK →
               </Link>

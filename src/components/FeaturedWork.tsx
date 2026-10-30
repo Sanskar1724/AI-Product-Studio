@@ -12,7 +12,7 @@ export default function FeaturedWork() {
         <div className="flex flex-wrap items-end gap-4">
           <SectionHeading eyebrow="Featured work" title={<>Real products, <span className="text-[#c8ff3d]">real code.</span></>} />
           <Link to="/work" className="ml-auto inline-flex items-center gap-2 text-sm font-semibold text-[#c8ff3d] hover:gap-3 transition-all">
-            All {PROJECTS.length} builds <ArrowUpRight size={15} />
+            All builds <ArrowUpRight size={15} />
           </Link>
         </div>
         <div className="mt-10 grid md:grid-cols-3 gap-4">

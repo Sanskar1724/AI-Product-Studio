@@ -35,7 +35,7 @@ export default function WorkPage() {
           <p className="mt-3 font-mono2 text-[11px] text-white/35">Repository and star counts: {github.label}.</p>
         </div>
       </section>
-      <BuiltTested bare />
+      <BuiltTested />
       <TechEcosystem />
     </PageShell>
   );

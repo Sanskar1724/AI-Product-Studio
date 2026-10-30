@@ -67,7 +67,7 @@ export default function Hero() {
             className="mt-6 text-lg text-[#9aa4b2] max-w-xl leading-relaxed"
           >
             I build AI agents, SaaS products and data systems, from idea to deployment.
-            Browse {PROJECTS.length} public builds, with the code behind each one.
+            Browse my public builds, with the code behind each one.
           </motion.p>
 
           <motion.div
@@ -92,9 +92,6 @@ export default function Hero() {
               <span className="w-2 h-2 rounded-full bg-white/20" />
               <span className="w-2 h-2 rounded-full bg-white/20" />
               <span className="ml-1 font-mono2 text-[10px] text-[#9aa4b2]">forge — live</span>
-              <span className="ml-auto flex items-center gap-1.5 font-mono2 text-[10px] text-[#c8ff3d]">
-                <span className="w-1.5 h-1.5 rounded-full bg-[#c8ff3d] animate-pulse" /> AI PROCESSING
-              </span>
             </div>
             <div className="px-4 py-3 font-mono2 text-[12px] leading-relaxed text-[#c6cdd8] min-h-[86px]">
               <Typewriter

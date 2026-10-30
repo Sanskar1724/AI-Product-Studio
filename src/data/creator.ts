@@ -184,16 +184,10 @@ export const HF_SPACES = [
   { name: "DeepSite Project", desc: "Running Space", url: "https://huggingface.co/spaces/EquilStable/deepsite-project-0tta9" },
 ];
 
-export const AI_TOOLS = ["ChatGPT", "Claude", "Midjourney", "GitHub Copilot", "Lovable", "Canva AI"];
-
-export const INTERESTS = ["Software Development", "Artificial Intelligence", "Prompt Engineering", "UI/UX Design", "Ethical Hacking", "Content Creation"];
 export const PHILOSOPHY = "The best engineers of tomorrow won't just write code — they'll orchestrate AI systems that amplify human creativity.";
 
 export const SOCIALS: Social[] = [
   { name: "LINKEDIN", desc: "Professional / career", handle: "in/sanskar-chandawar", url: "https://www.linkedin.com/in/sanskar-chandawar/" },
-  { name: "GITHUB", desc: "Code / projects", handle: "Sanskar1724", url: "https://github.com/Sanskar1724" },
-  { name: "LEETCODE", desc: "Problem solving", handle: "IjxdheI4ij", url: "https://leetcode.com/u/IjxdheI4ij/" },
-  { name: "HACKERRANK", desc: "Skills / certifications", handle: "@sanskarchandawa1", url: "https://www.hackerrank.com/profile/sanskarchandawa1" },
   { name: "INSTAGRAM", desc: "@sansk_r17.exe", handle: "sansk_r17.exe", url: "https://www.instagram.com/sansk_r17.exe/" },
   { name: "X / TWITTER", desc: "@Sanskar_learner", handle: "Sanskar_learner", url: "https://x.com/Sanskar_learner" },
 ];

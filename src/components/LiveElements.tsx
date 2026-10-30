@@ -103,7 +103,6 @@ export function TerminalWindow({ lines, title = "forge — build.sh" }: { lines:
         <span className="w-2.5 h-2.5 rounded-full bg-yellow-400/70" />
         <span className="w-2.5 h-2.5 rounded-full bg-green-400/70" />
         <span className="ml-2 font-mono2 text-[11px] text-[#9aa4b2]">{title}</span>
-        <span className="ml-auto"><StatusDot color="#5eead4" label="build ready" /></span>
       </div>
       <div className="p-4 sm:p-5 font-mono2 text-[13px] leading-relaxed text-[#c6cdd8] min-h-[150px]">
         <Typewriter lines={lines} />

@@ -2,7 +2,7 @@ import ProductBuilder from "../components/ProductBuilder";
 import Estimator from "../components/Estimator";
 import { TerminalWindow } from "../components/LiveElements";
 import { Reveal } from "../components/ui";
-import { PageShell, StatusDot } from "../fx/fx";
+import { PageShell } from "../fx/fx";
 import { PageHeader } from "./shared";
 
 export default function BuilderPage() {
@@ -16,11 +16,7 @@ export default function BuilderPage() {
       <section className="py-6">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 grid lg:grid-cols-[0.9fr_1.1fr] gap-6 items-center">
           <Reveal>
-            <div className="flex items-center gap-3">
-              <StatusDot label="AI online" />
-              <StatusDot color="#5eead4" label="build ready" pulse={false} />
-            </div>
-            <p className="mt-3 text-[#9aa4b2] leading-relaxed">
+            <p className="text-[#9aa4b2] leading-relaxed">
               The configurator runs entirely in your browser — selections become architecture, stack and stages.
               Nothing is sent anywhere; the studio wires the real backend when we build together.
             </p>

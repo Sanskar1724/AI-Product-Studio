@@ -7,7 +7,7 @@ Live: https://forgeaistudio.vercel.app/
 
 ## Stack
 
-React + TypeScript + Vite + Tailwind CSS v4 · Framer Motion · GSAP-ready · Lenis smooth scroll · Lucide icons
+React + TypeScript + Vite + Tailwind CSS v4 · Framer Motion · Lenis smooth scroll · Lucide icons
 
 ## Develop
 
@@ -29,7 +29,7 @@ Standard Vite static output in `dist/`. Deploy by connecting the repo to Vercel 
 - `src/data/studio.ts` — all content: capabilities, services, experiments, projects, tech, process (edit copy here)
 - `src/data/creator.ts` — creator profile: builds, stack, certifications, coding profiles, socials
 - `src/data/github.ts` — live repo and star counts from the public GitHub API, with a dated snapshot as fallback
-- `src/components/` — Navbar, Hero, CapabilitySystem, Services, ProductBuilder, Solutions, AILab, LiveDemo, Process, BuiltTested, TechEcosystem, Independent, Estimator, Closing
+- `src/components/` — Navbar, Hero, CapabilitySystem, Services, ProductBuilder, Solutions, AILab, LiveDemo, Process, BuiltTested, TechEcosystem, Estimator, Closing
 - `public/` — favicon, OG image, robots.txt, sitemap.xml
 - `.github/workflows/ci.yml` — lint and build on every push and pull request
 
