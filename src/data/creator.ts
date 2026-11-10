@@ -9,7 +9,7 @@ export const CREATOR = {
     school: "MIT Academy of Engineering",
     cgpa: "7.84 / 10",
   },
-  resumeUrl: "https://hackerrank-resume.s3.us-east-1.amazonaws.com/uploads/30565348/MzA1NjUzNDg=.pdf",
+  resumeUrl: "https://hackerrank-resume.s3.amazonaws.com/uploads/30565348/MzA1NjUzNDg%3D.pdf?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAR6O7GJNX2PJLRWX4%2F20261110%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20261110T134400Z&X-Amz-Expires=3600&X-Amz-SignedHeaders=host&X-Amz-Signature=224c43b0546029c429ba9152a61e9d696e18f6708279781af4ded825a8fbef45",
 };
 
 export interface CreatorCap {
